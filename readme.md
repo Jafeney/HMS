@@ -1,6 +1,6 @@
 title: Seyaney假日酒店 
 createDate: 2016-01-26 
-author: Seyaney 
+author: Jafeney  
 
 # 系统介绍 
 
