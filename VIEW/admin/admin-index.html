@@ -1,0 +1,232 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>酒店管理系统后台</title>
+		<meta name="keywords" content="index">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" href="assets/css/amazeui.min.css" />
+		<link rel="stylesheet" href="assets/css/admin.css">
+	</head>
+	<body>
+<!--[if lt IE 9]>
+<p class="browsehappy" style="text-align:center;padding-top:10px;">您正在使用<strong>过时</strong>的浏览器, 建议您<a href="http://browsehappy.com/" style="color:red" target="_blank"> 升级浏览器 </a>。 360浏览器的亲可以切换到 <a href="http://jingyan.baidu.com/article/d169e186a3dd27436611d829.html" style="color:Red">极速模式</a> ，
+    以获得更好的体验！</p>
+<![endif]-->
+<!--[if lt IE 8]>
+<p class="browsehappy" style="text-align:center;padding-top:10px;">您正在使用<strong>过时</strong>的浏览器, 建议您<a href="http://browsehappy.com/" style="color:red" target="_blank"> 升级浏览器 </a>。 360浏览器的亲可以切换到 <a href="http://jingyan.baidu.com/article/d169e186a3dd27436611d829.html" style="color:Red">极速模式</a> ，
+    以获得更好的体验！</p>
+<![endif]-->
+		<div class="am-topbar admin-header">
+			<div class="am-topbar-brand">
+				<strong> 酒店管理系统</strong> <small>后台管理中心</small>
+			</div>
+			<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}">
+				<span class="am-sr-only">导航切换</span> 
+				<span class="am-icon-bars"></span>
+			</button>
+			<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+					<li><a href="#"><span class="am-icon-user"></span> 欢迎登录！尊敬的管理员</a>
+					</li>
+					<li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 最新消息 <span class="am-badge am-badge-warning">5</span></a>
+					</li>
+					<li><a href="#"><span class="am-icon-power-off"></span> 退出</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="am-cf admin-main">
+			<!-- sidebar start -->
+			<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+				<div class="am-offcanvas-bar admin-offcanvas-bar">
+					<ul class="am-list admin-sidebar-list">
+						<li>
+							<a href="admin-index.html"><span class="am-icon-home"></span> 系统主页</a>
+						</li>
+						<li class="admin-parent">
+							<a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-users"></span> 管理中心 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+							<ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+								<li>
+									<a href="admin-banner.html">轮播管理</a>
+								</li>
+								<li>
+									<a href="admin-company.html">企业管理 </a>
+								</li>
+								<li>
+									<a href="admin-product.html">产品管理 </a>
+								</li>
+								<li>
+									<a href="admin-users.html">客户管理 <span class="am-badge am-badge-secondary am-margin-right am-fr">3</span></a>
+								</li>
+								<li>
+									<a href="admin-order.html">订单管理 <span class="am-badge am-badge-secondary am-margin-right am-fr">3</span></a>
+								</li>
+								<li>
+									<a href="admin-news.html">新闻管理</a>
+								</li>
+								<li>
+									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-secondary am-margin-right am-fr">3</span></a>
+								</li>
+								
+							</ul>
+						</li>
+						
+						<li>
+							<a href="admin-system.html"><span class="am-icon-cog"></span> 系统设置</a>
+						</li>
+					</ul>
+
+					<div class="am-panel am-panel-default admin-sidebar-panel">
+						<div class="am-panel-bd">
+							<p><span class="am-icon-smile-o"></span> 报告老板</p>
+							<p style="font-size: 14px;color: #666;">
+							一个人事业上的成功，只有15%是由于他的专业技术，另外的85%要依依耐人际关系、外世技巧。软与硬是相对而言的。专业的技术是硬本领，善于处理人际关系的交际本领则是软本领。
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- sidebar end -->
+
+			<!-- content start -->
+			<div class="admin-content">
+ 
+				<div class="am-cf am-padding">
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">后台管理系统</strong> / <small>管理首页</small>
+					</div>
+				</div>
+
+				<ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+					<li><a href="#" class="am-text-secondary"><span class="am-icon-btn  am-icon-credit-card"></span><br/>今日订单<br/>4</a>
+					</li>
+					<li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-user"></span><br/>今日客户<br/>25</a>
+					</li>
+					<li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-jpy"></span><br/>今日收入<br/>￥2000</a>
+					</li>
+					<li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-tags"></span><br/>今日留言<br/>4</a>
+					</li>
+					
+				</ul>
+
+				<div class="am-g">
+					<div class="am-u-md-12">
+						<div class="am-panel am-panel-default">
+							<div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-1'}">管理员信息<span class="am-icon-chevron-down am-fr"></span>
+							</div>
+
+							<div class="am-panel-bd am-collapse am-in" id="collapse-panel-1">
+
+								<div class="am-input-group am-margin-top-sm">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-user" ></i> 用户名</span>
+									<input style=" font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="您的用户名">
+								</div>
+
+								<div class="am-input-group am-margin-top-sm">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-picture-o" ></i> 头像</span>
+									<input style=" font-size: 14px;padding: 8px 10px;" type="file" class="am-form-field">
+								</div>
+
+								<div class="am-input-group am-margin-top-sm">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-envelope" ></i> 邮箱</span>
+									<input style=" font-size: 14px;padding: 8px 10px;" type="email" class="am-form-field" placeholder="您的邮箱地址">
+								</div>
+
+								<div class="am-input-group am-margin-top-sm">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-phone" ></i> 联系电话</span>
+									<input style="font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="输入您常用的联系电话">
+								</div>
+
+								<div class="am-input-group am-margin-top-sm am-cf" style="width: 100%;">
+									<button class="am-btn am-btn-sm am-btn-default" style="width: 48%;">取消</button>
+									<button class="am-btn am-btn-sm am-btn-primary" style=" margin-left: 3%;width: 48%;" id="save_person_info">保存</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="am-u-md-12">
+
+						<div class="am-panel am-panel-default">
+							<div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-5'}">修改登录密码<span class="am-icon-chevron-down am-fr"></span>
+							</div>
+							<div id="collapse-panel-5" class="am-panel-bd am-collapse am-in">
+								<div class="am-input-group">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-lock" ></i> 原始密码</span>
+									<input id="tb_oldpwd" style="font-size: 14px;padding: 8px 10px;" type="password" class="am-form-field" placeholder="输入原始密码">
+								</div>
+								<div class="am-text-right">
+									<span id="check_oldpwd" class="am-text-danger" style="font-size: 14px;display: none;">&nbsp;  原始密码不正确</span>
+								</div>
+
+								<div class="am-input-group am-margin-top-sm">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-edit" ></i> 新的密码</span>
+									<input id="tb_newpwd" style="font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="新的密码由字母和数字组成">
+								</div>
+
+								<div class="am-text-right">
+									<span id="check_newpwd" class="am-text-danger" style="font-size: 14px;display: none;">&nbsp; 密码不合法</span>
+								</div>
+
+								<div class="am-input-group am-margin-top-sm">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-edit" ></i> 重复密码</span>
+									<input id="tb_repwd" style="font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="输入重复密码">
+								</div>
+
+								<div class="am-text-right">
+									<span id="check_repwd" class="am-text-danger" style="font-size: 14px;display: none; ">&nbsp;  重复密码不正确</span>
+								</div>
+
+								<div class="am-input-group am-margin-top-sm am-cf" style="width: 100%;">
+									<button class="am-btn am-btn-sm am-btn-default" style="width: 48%;">取消</button>
+									<button class="am-btn am-btn-sm am-btn-primary" style=" margin-left: 3%;width: 48%;" id="save_password">保存</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					
+				</div>
+			</div>
+			<!-- content end -->
+		</div>
+
+		<a class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+		<div>
+			<hr>
+			<p class="am-padding-left"><span>Copyright &copy; 2016.温州医科大学 毕业设计作品.<small> &nbsp;&nbsp;信息与工程学院</small></span></p>
+		</div>
+		
+		<div id="all_operate"></div>
+
+		<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/polyfill/rem.min.js"></script>
+<script src="assets/js/polyfill/respond.min.js"></script>
+<script src="assets/js/amazeui.legacy.js"></script>
+<![endif]-->
+
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/amazeui.min.js"></script>
+		<!--<![endif]-->
+		<script src="assets/js/Common_model.js"></script>
+		<script src="assets/js/app.js"></script>
+		<!--
+			描述：导入ueditor 编辑器
+		-->
+		<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"></script>
+		<script type="text/javascript">
+			var ue = UE.getEditor('editor');
+		</script>
+	</body>
+
+</html>
