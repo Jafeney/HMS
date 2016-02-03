@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/1/30 17:15:30                           */
+/* Created on:     2016/2/3 23:38:21                            */
 /*==============================================================*/
 
 
@@ -52,9 +52,10 @@ create table admin
 create table carousel_manage
 (
    cm_id                int not null auto_increment,
-   cm_name              varchar(50),
    a_id                 int,
+   cm_name              varchar(50),
    cm_img               varchar(50),
+   cm_info              varchar(500),
    cm_link              varchar(50),
    cm_updateTime        datetime,
    cm_rank              int,
@@ -106,9 +107,10 @@ create table gallery
    g_name               varchar(30),
    g_img                varchar(50),
    g_info               varchar(1000),
+   g_link               varchar(50),
+   g_time               datetime,
    g_rank               int,
    g_isDel              bool,
-   g_time               datetime,
    primary key (g_id)
 );
 
@@ -198,7 +200,7 @@ create table product
    a_id                 int,
    p_name               varchar(100),
    p_img                varchar(1000),
-   p_intro              varchar(5000),
+   p_info               varchar(5000),
    p_price              decimal,
    p_time               datetime,
    p_rank               int,
