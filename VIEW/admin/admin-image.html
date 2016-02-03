@@ -74,6 +74,7 @@
 								</li>
 							</ul>
 						</li>
+						
 						<li>
 							<a href="admin-system.html"><span class="am-icon-cog"></span> 系统设置</a>
 						</li>
@@ -90,12 +91,12 @@
 				</div>
 			</div>
 			<!-- sidebar end -->
-
+			
 			<!-- content start -->
 			<div class="admin-content" id="files">
 
 				<div class="am-cf am-padding">
-					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">后台管理系统</strong> / <small>产品管理</small>
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">后台管理系统</strong> / <small>图片管理</small>
 					</div>
 				</div>
 
@@ -105,16 +106,17 @@
 						<div class="am-btn-toolbar">
 							<div class="am-btn-group am-btn-group-xs am-margin-bottom-sm">
 								<button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-								<button type="button" class="am-btn am-btn-default delete_user"><span class="am-icon-trash-o"></span> 删除</button>
+								<button type="button" class="am-btn am-btn-default delete_user"><span class="am-icon-trash-o"></span> 删除</button> 
 							</div>
 						</div>
 					</div>
 					<div class="am-u-sm-12 am-u-md-3">
-						<div class="am-input-group am-input-group-sm">
-							<input type="text" class="am-form-field" placeholder="输入文档的标题或者关键字搜索">
-							<span class="am-input-group-btn">
-            					<button class="am-btn am-btn-default" type="button" style="">搜索</button>
-          					</span>
+						<div class="am-input-group am-margin-top-sm" style="position: relative;top:-15px;">
+							<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-image"></i> 图片类型</span>
+							<select style="font-size: 14px;padding: 8px 20px;text-align: center;" class="am-form-field" placeholder="Username">
+								<option>设施</option>
+								<option>轮播</option>
+							</select>
 						</div>
 					</div>
 					</div>
@@ -130,13 +132,13 @@
 											<input type="checkbox" class="CheckAllButton" title="全选" value="1"/>
 										</th>
 										<th class="table-id">ID</th>
-										<th class="table-title">产品名称</th>
-										<th class="table-type">预览图</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 产品简介</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 产品价格</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 更新时间</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 排序权重</th>
-										<th class="table-set">操作</th>
+										<th class="table-title">图片标题</th>
+										<th class="table-date am-hide-sm-only">图片地址</th>
+										<th class="table-date am-hide-sm-only am-text-center">图片简介</th>
+										<th class="table-date am-hide-sm-only am-text-center">图片链接</th>
+										<th class="table-date am-hide-sm-only am-text-center">上传时间</th>
+										<th class="table-date am-hide-sm-only am-text-center">排序权重</th>
+										<th class="table-set am-text-center">操作</th>
 									</tr>
 								</thead>
 								<tbody class="am-text-sm CheckAllBody">
@@ -146,10 +148,75 @@
 											<input type="checkbox" />
 										</td>
 										<td>1</td>
-										<td>中国大学生医药数学建模竞赛指南</td>
-										<td>../data/1.pdf</td>
-										<td class="am-hide-sm-only am-text-center">什么是数学模型与数学建模?简单地说：数学模型就是对实际问题的一种数学表述。 具体...</td>
+										<td>单人标准房</td>
+										<td>http://n.baai.com/demo/banner1.jpg</td>
+										<td class="am-hide-sm-only am-text-center">单人标准房</td>
+										<td class="am-hide-sm-only am-text-center">http://www.baai.hk/product/214</td>
 										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
+										<td class="am-hide-sm-only am-text-center">1</td>
+										<td>
+											<div class="am-btn-toolbar">
+												<div class="am-btn-group am-btn-group-xs">
+													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
+												</div>
+											</div>
+										</td>
+									</tr>
+									
+									<tr>
+										<td>
+											<input type="checkbox" />
+										</td>
+										<td>2</td>
+										<td>单人豪华房</td>
+										<td>http://n.baai.com/demo/banner1.jpg</td>
+										<td class="am-hide-sm-only am-text-center">单人豪华房</td>
+										<td class="am-hide-sm-only am-text-center">http://www.baai.hk/product/214</td>
+										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
+										<td class="am-hide-sm-only am-text-center">1</td>
+										<td>
+											<div class="am-btn-toolbar">
+												<div class="am-btn-group am-btn-group-xs">
+													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+									<tr>
+										<td>
+											<input type="checkbox" />
+										</td>
+										<td>3</td>
+										<td>双人标准房</td>
+										<td>http://n.baai.com/demo/banner1.jpg</td>
+										<td class="am-hide-sm-only am-text-center">双人标准房</td>
+										<td class="am-hide-sm-only am-text-center">http://www.baai.hk/product/214</td>
+										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
+										<td class="am-hide-sm-only am-text-center">1</td>
+										<td>
+											<div class="am-btn-toolbar">
+												<div class="am-btn-group am-btn-group-xs">
+													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
+												</div>
+											</div>
+										</td>
+									</tr>
+									
+									<tr>
+										<td>
+											<input type="checkbox" />
+										</td>
+										<td>4</td>
+										<td>双人人豪华房</td>
+										<td>http://n.baai.com/demo/banner1.jpg</td>
+										<td class="am-hide-sm-only am-text-center">双人标准房</td>
+										<td class="am-hide-sm-only am-text-center">http://www.baai.hk/product/214</td>
+										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
+										<td class="am-hide-sm-only am-text-center">1</td>
 										<td>
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
@@ -169,14 +236,6 @@
 										<li class="am-disabled"><a href="#">«</a>
 										</li>
 										<li class="am-active"><a href="#">1</a>
-										</li>
-										<li><a href="#">2</a>
-										</li>
-										<li><a href="#">3</a>
-										</li>
-										<li><a href="#">4</a>
-										</li>
-										<li><a href="#" class="am-hide-sm-only">5</a>
 										</li>
 										<li><a href="#">»</a>
 										</li>
@@ -199,6 +258,7 @@
 			<hr>
 			<p class="am-padding-left"><span>Copyright &copy; 2016.温州医科大学 毕业设计作品.<small> &nbsp;&nbsp;信息与工程学院</small></span></p>
 		</div>
+		
 		<div id="all_operate"></div>
 
 		<!--[if lt IE 9]>

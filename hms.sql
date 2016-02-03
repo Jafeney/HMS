@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016/1/27 23:00:06                           */
+/* Created on:     2016/1/30 17:15:30                           */
 /*==============================================================*/
 
 
@@ -52,6 +52,7 @@ create table admin
 create table carousel_manage
 (
    cm_id                int not null auto_increment,
+   cm_name              varchar(50),
    a_id                 int,
    cm_img               varchar(50),
    cm_link              varchar(50),
