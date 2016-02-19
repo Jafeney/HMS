@@ -10,6 +10,7 @@
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<link rel="stylesheet" href="assets/css/amazeui.min.css" />
 		<link rel="stylesheet" href="assets/css/admin.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/app.css">
 	</head>
 	<body>
 <!--[if lt IE 9]>
@@ -93,7 +94,7 @@
 			<!-- sidebar end -->
 			
 			<!-- content start -->
-			<div class="admin-content" id="files">
+			<div class="admin-content" id="content-image">
 
 				<div class="am-cf am-padding">
 					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">后台管理系统</strong> / <small>图片管理</small>
@@ -106,7 +107,7 @@
 						<div class="am-btn-toolbar">
 							<div class="am-btn-group am-btn-group-xs am-margin-bottom-sm">
 								<button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-								<button type="button" class="am-btn am-btn-default delete_user"><span class="am-icon-trash-o"></span> 删除</button> 
+								<button type="button" class="am-btn am-btn-default delete-some"><span class="am-icon-trash-o"></span> 删除</button> 
 							</div>
 						</div>
 					</div>
@@ -129,7 +130,7 @@
 								<thead>
 									<tr>
 										<th class="table-check am-text-center">
-											<input type="checkbox" class="CheckAllButton" title="全选" value="1"/>
+											<input type="text" class="checkbox" title="全选" id="checkAll" />
 										</th>
 										<th class="table-id">ID</th>
 										<th class="table-title">图片标题</th>
@@ -141,11 +142,11 @@
 										<th class="table-set am-text-center">操作</th>
 									</tr>
 								</thead>
-								<tbody class="am-text-sm CheckAllBody">
+								<tbody class="am-text-sm CheckAllBody" id="image-list">
 
 									<tr>
 										<td>
-											<input type="checkbox" />
+											<input type="text" class="checkbox check-single" data-id="1" />
 										</td>
 										<td>1</td>
 										<td>单人标准房</td>
@@ -157,71 +158,8 @@
 										<td>
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
-												</div>
-											</div>
-										</td>
-									</tr>
-									
-									<tr>
-										<td>
-											<input type="checkbox" />
-										</td>
-										<td>2</td>
-										<td>单人豪华房</td>
-										<td>http://n.baai.com/demo/banner1.jpg</td>
-										<td class="am-hide-sm-only am-text-center">单人豪华房</td>
-										<td class="am-hide-sm-only am-text-center">http://www.baai.hk/product/214</td>
-										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
-										<td class="am-hide-sm-only am-text-center">1</td>
-										<td>
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
-												</div>
-											</div>
-										</td>
-									</tr>
-
-									<tr>
-										<td>
-											<input type="checkbox" />
-										</td>
-										<td>3</td>
-										<td>双人标准房</td>
-										<td>http://n.baai.com/demo/banner1.jpg</td>
-										<td class="am-hide-sm-only am-text-center">双人标准房</td>
-										<td class="am-hide-sm-only am-text-center">http://www.baai.hk/product/214</td>
-										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
-										<td class="am-hide-sm-only am-text-center">1</td>
-										<td>
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
-												</div>
-											</div>
-										</td>
-									</tr>
-									
-									<tr>
-										<td>
-											<input type="checkbox" />
-										</td>
-										<td>4</td>
-										<td>双人人豪华房</td>
-										<td>http://n.baai.com/demo/banner1.jpg</td>
-										<td class="am-hide-sm-only am-text-center">双人标准房</td>
-										<td class="am-hide-sm-only am-text-center">http://www.baai.hk/product/214</td>
-										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
-										<td class="am-hide-sm-only am-text-center">1</td>
-										<td>
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
+													<button class="am-btn am-btn-default am-btn-xs am-text-secondary edit-image"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-image" ><span class="am-icon-trash-o "></span> 删除</button>
 												</div>
 											</div>
 										</td>
@@ -230,7 +168,7 @@
 								</tbody>
 							</table>
 							<div class="am-cf am-text-sm">
-								共 15 条记录
+								共 4 条记录
 								<div class="am-fr">
 									<ul class="am-pagination">
 										<li class="am-disabled"><a href="#">«</a>

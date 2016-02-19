@@ -10,6 +10,7 @@
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<link rel="stylesheet" href="assets/css/amazeui.min.css" />
 		<link rel="stylesheet" href="assets/css/admin.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/app.css">
 	</head>
 	<body>
 <!--[if lt IE 9]>
@@ -94,7 +95,7 @@
 
 
 			<!-- content start -->
-			<div class="admin-content" id="message">
+			<div class="admin-content" id="content-message">
 
 				<div class="am-cf am-padding">
 					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">后台管理系统</strong> / <small>留言管理</small>
@@ -106,9 +107,9 @@
 						
 						<div class="am-btn-toolbar am-fr">
 							<div class="am-btn-group am-btn-group-xs">
-								<button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span> 已阅</button>
+								<button type="button" class="am-btn am-btn-default looked-some"><span class="am-icon-check"></span> 已阅</button>
 								
-								<button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span> 删除</button>
+								<button type="button" class="am-btn am-btn-default delete-some"><span class="am-icon-times"></span> 删除</button>
 							</div>
 						</div>
 						
@@ -124,10 +125,11 @@
 							<span class="am-icon-chevron-down am-fr"></span>
 						</div>
 						<div class="am-panel-bd am-collapse am-in am-cf" id="collapse-panel-3">
-							<ul class="am-list admin-content-task">
+							<ul class="am-list admin-content-task" id="message-list">
 								<li>
 									<div class="admin-task-meta">
-										<input type="checkbox" style="position:relative;top: 2px;margin-right: 5px;"> <span class="am-text-danger">留言者</span> 留言时间 <span>2015-5-21 15:23 </span>  联系邮箱 <span class="am-text-secondary">692270687@qq.com</span><span class="am-text-defualt am-fr">2015-5-21 20:00</span>
+									<input type="text" style="top:-2px;" class="checkbox check-single" data-id="1" />
+									<span class="am-text-danger">留言者</span> 留言时间 <span>2015-5-21 15:23 </span>  联系邮箱 <span class="am-text-secondary">692270687@qq.com</span><span class="am-text-defualt am-fr">2015-5-21 20:00</span>
 									</div>
 									<div class="admin-task-bd">
 										这里是留言内容。这里是留言内容。这里是留言内容。这里是留言内容。这里是留言内容。这里是留言内容。
@@ -135,8 +137,8 @@
 									<div class="am-cf">
 										<div class="am-btn-toolbar am-fr">
 											<div class="am-btn-group am-btn-group-xs">
-												<button type="button" class="am-btn am-btn-default"><span class="am-icon-check"></span></button>
-												<button type="button" class="am-btn am-btn-default"><span class="am-icon-times"></span></button>
+												<button type="button" class="am-btn am-btn-default looked-message"><span class="am-icon-check"></span></button>
+												<button type="button" class="am-btn am-btn-default delete-message"><span class="am-icon-times"></span></button>
 											</div>
 										</div>
 									</div>

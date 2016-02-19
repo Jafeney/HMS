@@ -10,6 +10,7 @@
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<link rel="stylesheet" href="assets/css/amazeui.min.css" />
 		<link rel="stylesheet" href="assets/css/admin.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/app.css">
 	</head>
 	<body>
 <!--[if lt IE 9]>
@@ -93,7 +94,7 @@
 			<!-- sidebar end -->
 
 			<!-- content start -->
-			<div class="admin-content" id="files">
+			<div class="admin-content" id="content-system">
 
 				<div class="am-cf am-padding">
 					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">后台管理系统</strong> / <small>系统设置</small>
@@ -106,7 +107,7 @@
 						<div class="am-btn-toolbar">
 							<div class="am-btn-group am-btn-group-xs am-margin-bottom-sm">
 								<button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-								<button type="button" class="am-btn am-btn-default delete_user"><span class="am-icon-trash-o"></span> 删除</button>
+								<button type="button" class="am-btn am-btn-default delete-some"><span class="am-icon-trash-o"></span> 删除</button>
 							</div>
 						</div>
 					</div>
@@ -128,7 +129,7 @@
 								<thead>
 									<tr>
 										<th class="table-check am-text-center">
-											<input type="checkbox" class="CheckAllButton" title="全选" value="1"/>
+											<input type="text" class="checkbox" title="全选" id="checkAll" />
 										</th>
 										<th class="table-id">ID</th>
 										<th class="table-type">主题名称</th>
@@ -138,11 +139,11 @@
 										<th class="table-set">操作</th>
 									</tr>
 								</thead>
-								<tbody class="am-text-sm CheckAllBody">
+								<tbody class="am-text-sm CheckAllBody" id="theme-list">
 
 									<tr>
 										<td>
-											<input type="checkbox" />
+											<input type="text" class="checkbox check-single" data-id="1" />
 										</td>
 										<td>1</td>
 										<td>浪漫红</td>
@@ -153,83 +154,7 @@
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
 													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
-												</div>
-											</div>
-										</td>
-									</tr>
-
-									<tr>
-										<td>
-											<input type="checkbox" />
-										</td>
-										<td>1</td>
-										<td>浪漫红</td>
-										<td class="am-hide-sm-only am-text-center">red_1</td>
-										<td class="am-hide-sm-only am-text-center">./css/style1.css</td>
-										<td class="am-hide-sm-only am-text-center">1</td>
-										<td>
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
-												</div>
-											</div>
-										</td>
-									</tr>
-
-									<tr>
-										<td>
-											<input type="checkbox" />
-										</td>
-										<td>2</td>
-										<td>艺术绿</td>
-										<td class="am-hide-sm-only am-text-center">green_1</td>
-										<td class="am-hide-sm-only am-text-center">./css/style2.css</td>
-										<td class="am-hide-sm-only am-text-center">1</td>
-										<td>
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
-												</div>
-											</div>
-										</td>
-									</tr>
-
-									<tr>
-										<td>
-											<input type="checkbox" />
-										</td>
-										<td>3</td>
-										<td>纯情绿</td>
-										<td class="am-hide-sm-only am-text-center">green_2</td>
-										<td class="am-hide-sm-only am-text-center">./css/style3.css</td>
-										<td class="am-hide-sm-only am-text-center">1</td>
-										<td>
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
-												</div>
-											</div>
-										</td>
-									</tr>
-
-									<tr>
-										<td>
-											<input type="checkbox" />
-										</td>
-										<td>4</td>
-										<td>高贵紫</td>
-										<td class="am-hide-sm-only am-text-center">pink_1</td>
-										<td class="am-hide-sm-only am-text-center">./css/style4.css</td>
-										<td class="am-hide-sm-only am-text-center">1</td>
-										<td>
-											<div class="am-btn-toolbar">
-												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete_file" ><span class="am-icon-trash-o "></span> 删除</button>
+													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-theme" ><span class="am-icon-trash-o "></span> 删除</button>
 												</div>
 											</div>
 										</td>

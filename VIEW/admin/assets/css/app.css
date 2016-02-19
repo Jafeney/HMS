@@ -1,1 +1,37 @@
 /* Write your styles */
+.gallery-list{
+	width:100%;
+	font-size: 0px;
+	text-align: left;
+}
+.gallery-list>li{
+	display: inline-block;
+	font-size: 12px;
+	vertical-align: top;
+	margin:0px 5px;
+	padding-left: 20px;
+	cursor: pointer;
+}
+
+.gallery-list>li.active{
+	background: url(../i/list3.png) no-repeat left center ;
+}
+
+.checkbox{
+	width:14px !important;
+	height:14px !important;
+	margin-left:5px !important;
+	text-align:center !important;
+	font-size:0 !important;
+	border:1px solid #D1CACB !important;
+	cursor:pointer !important;
+	position:relative !important;
+	top:-5px;
+	margin-right:10px !important;
+}
+.checkbox.check-single{
+	top:5px;
+}
+.checkbox.checked{
+	background:url(http://n.baai.com/baai/uploadfile/2015/07/03/201507031412433771.png) 50% 50% no-repeat !important;
+}
