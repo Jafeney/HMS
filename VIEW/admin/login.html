@@ -50,16 +50,16 @@
 				<form method="post" class="am-form">
 					<div class="am-input-group">
 						<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-user" ></i> UserName</span>
-						<input style="font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="输入您的用户名">
+						<input id="login-username" style="font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="输入您的用户名">
 					</div>
 
 					<div class="am-input-group am-margin-top-sm">
 						<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-shield" ></i> Password &nbsp;</span>
-						<input style=" font-size: 14px;padding: 8px 10px;" type="password" class="am-form-field" placeholder="输入您的登录密码">
+						<input id="login-password" style=" font-size: 14px;padding: 8px 10px;" type="password" class="am-form-field" placeholder="输入您的登录密码">
 					</div>
 					<br />
 					<div class="am-fr " style="width:100%">
-						<button style="position: relative; width:100%; top: 20px; " class="am-btn app-btn-my" id="app-btn-my">登录</button>
+						<button style="position: relative; width:100%; top: 20px; " class="am-btn app-btn-my" id="login-submit">登录</button>
 					</div>
 				</form>
 			</div>
@@ -68,7 +68,41 @@
 			<hr>
 			<p class="am-padding-left" style="text-align: center"><span>Copyright &copy; 2016.温州医科大学 毕业设计作品.<small> &nbsp;&nbsp;信息与工程学院</small></span></p>
 		</div>
+
+		<div id="all_operate"></div>
 	</body>
 	<script src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/amazeui.min.js"></script>
+	<script src="assets/js/Common_model.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#login-submit').on('click',function(e){
+				e.preventDefault();
+				var _username=$('#login-username').val();
+				var _password=$('#login-password').val();
+
+				if(!_username){
+					JafeneyAlert("温馨提示","用户名不能为空！");
+					$('#JafeneyAlert').modal();
+					return false;		
+				}
+				if(!_password){
+					JafeneyAlert("温馨提示","登录密码不能为空！");	
+					$('#JafeneyAlert').modal();
+					return false;	
+				}
+
+				if(_username==="seyaney" && _password==="123456"){
+					window.localStorage.login_user="seyaney";
+					location.href="./admin-index.html";
+				}else{
+					JafeneyAlert("温馨提示","用户名或者密码不正确！");
+					$('#JafeneyAlert').modal();
+					return false;
+				}
+				
+			});
+		});
+	</script>
 
 </html>
