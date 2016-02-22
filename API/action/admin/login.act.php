@@ -17,18 +17,17 @@
 	
 	$res=$_mysqli->db_query_all($sql);
 
-	if($res[0]['a_id']){
-		/*信息匹配成功 把登录信息写入到session里*/
-		$_SESSION['userId']=$res[0]['a_id'];
-		$_SESSION['userName']=$res[0]['a_pwd'];
-		$_SESSION['userThumb']=$res[0]['a_thumb'];
+	if(count($res)==1){
+		/*信息匹配成功 把登录信息写入到cookie里*/
+		
+		setcookie('userId',$res[0]['a_id']);
+		setcookie('userName',$res[0]['a_name']);
 
-		echo formatJson($res);
+		echo '{"res":1}';
 
 		/*更新登录状态信息*/
-		$a_loginTimes=date('y-m-d h:i:s',time());
+		$a_loginTimes=$res[0]['a_loginTimes']+1;
 		$a_loginIP=getIPaddress();
-
 		$a_id=$_COOKIE['userId'];
 
 		/**
@@ -36,7 +35,10 @@
 		* @example update admin set a_loginIP='127.0.0.1',a_loginTimes='15-11-21 03:44:59' where a_id='1'
 		*/
 		$sql="update admin set a_loginIP='$a_loginIP',a_loginTimes='$a_loginTimes' where a_id='$a_id'";
+
 		$res=$_mysqli->db_noquery($sql);
+	}else{
+		echo '{"res":0}';
 	}
 
 ?>

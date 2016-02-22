@@ -30,9 +30,9 @@
 			</button>
 			<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-					<li><a href="#"><span class="am-icon-user"></span> 欢迎登录！尊敬的seyaney</a>
+					<li><a href="#"><span class="am-icon-user"></span> 欢迎登录！尊敬的 <label id="login-name">seyaney</label></a>
 					</li>
-					<li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 最新消息 <span class="am-badge am-badge-warning">5</span></a>
+					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning new-message-count">5</span></a>
 					</li>
 					<li><a href="./login.html"><span class="am-icon-power-off"></span> 退出</a>
 					</li>
@@ -61,18 +61,17 @@
 									<a href="admin-product.html">产品管理 </a>
 								</li>
 								<li>
-									<a href="admin-users.html">客户管理 <span class="am-badge am-badge-secondary am-margin-right am-fr">3</span></a>
+									<a href="admin-users.html">客户管理 </a>
 								</li>
 								<li>
-									<a href="admin-order.html">订单管理 <span class="am-badge am-badge-secondary am-margin-right am-fr">3</span></a>
+									<a href="admin-order.html">订单管理 </a>
 								</li>
 								<li>
 									<a href="admin-news.html">新闻管理</a>
 								</li>
 								<li>
-									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-secondary am-margin-right am-fr">3</span></a>
+									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr new-message-count">5</span></a>
 								</li>
-								
 							</ul>
 						</li>
 						
@@ -102,13 +101,13 @@
 				</div>
 
 				<ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
-					<li><a href="#" class="am-text-secondary"><span class="am-icon-btn  am-icon-credit-card"></span><br/>今日订单<br/>4</a>
+					<li><a href="#" class="am-text-secondary"><span class="am-icon-btn  am-icon-credit-card"></span><br/>今日订单<br/><label id="today-order-count">4</label></a>
 					</li>
-					<li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-user"></span><br/>今日客户<br/>25</a>
+					<li><a href="#" class="am-text-warning"><span class="am-icon-btn am-icon-user"></span><br/>今日客户<br/><label id="today-customer-count">25</label></a>
 					</li>
-					<li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-jpy"></span><br/>今日收入<br/>￥2000</a>
+					<li><a href="#" class="am-text-danger"><span class="am-icon-btn am-icon-jpy"></span><br/>今日收入<br/><label id="today-income">￥2000</label></a>
 					</li>
-					<li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-tags"></span><br/>今日留言<br/>4</a>
+					<li><a href="#" class="am-text-success"><span class="am-icon-btn am-icon-tags"></span><br/>今日留言<br/><label id="today-message-count">4</label></a>
 					</li>
 					
 				</ul>
@@ -123,26 +122,26 @@
 
 								<div class="am-input-group am-margin-top-sm">
 									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-user" ></i> 用户名</span>
-									<input style=" font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="您的用户名">
+									<input id="input-username" style=" font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="您的用户名">
 								</div>
 
 								<div class="am-input-group am-margin-top-sm">
-									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-picture-o" ></i> 头像</span>
-									<input style=" font-size: 14px;padding: 8px 10px;" type="file" class="am-form-field">
+									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-home" ></i> 常驻地址</span>
+									<input id="input-address" style=" font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="您的常驻地址">
 								</div>
 
 								<div class="am-input-group am-margin-top-sm">
 									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-envelope" ></i> 邮箱</span>
-									<input style=" font-size: 14px;padding: 8px 10px;" type="email" class="am-form-field" placeholder="您的邮箱地址">
+									<input id="input-email" style=" font-size: 14px;padding: 8px 10px;" type="email" class="am-form-field" placeholder="您的邮箱地址">
 								</div>
 
 								<div class="am-input-group am-margin-top-sm">
 									<span class="am-input-group-label" style="font-size: 14px;"><i class="am-icon-phone" ></i> 联系电话</span>
-									<input style="font-size: 14px;padding: 8px 10px;" type="text" class="am-form-field" placeholder="输入您常用的联系电话">
+									<input id="input-phone" style="font-size: 14px;padding: 8px 10px;" type="number" class="am-form-field" placeholder="输入您常用的联系电话">
 								</div>
 
 								<div class="am-input-group am-margin-top-sm am-cf" style="width: 100%;">
-									<button class="am-btn am-btn-sm am-btn-default" style="width: 48%;">取消</button>
+									<button class="am-btn am-btn-sm am-btn-default index-submit-cancel" style="width: 48%;">取消</button>
 									<button class="am-btn am-btn-sm am-btn-primary" style=" margin-left: 3%;width: 48%;" id="save_person_info">保存</button>
 								</div>
 							</div>
@@ -169,7 +168,7 @@
 								</div>
 
 								<div class="am-text-right">
-									<span id="check_newpwd" class="am-text-danger" style="font-size: 14px;display: none;">&nbsp; 密码不合法</span>
+									<span id="check_newpwd" class="am-text-danger" style="font-size: 14px;display: none">&nbsp; 密码不合法</span>
 								</div>
 
 								<div class="am-input-group am-margin-top-sm">
@@ -182,15 +181,12 @@
 								</div>
 
 								<div class="am-input-group am-margin-top-sm am-cf" style="width: 100%;">
-									<button class="am-btn am-btn-sm am-btn-default" style="width: 48%;">取消</button>
+									<button class="am-btn am-btn-sm am-btn-default index-submit-cancel" style="width: 48%;">取消</button>
 									<button class="am-btn am-btn-sm am-btn-primary" style=" margin-left: 3%;width: 48%;" id="save_password">保存</button>
 								</div>
 							</div>
 						</div>
-
 					</div>
-
-					
 				</div>
 			</div>
 			<!-- content end -->

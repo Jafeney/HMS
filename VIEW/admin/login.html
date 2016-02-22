@@ -76,31 +76,43 @@
 	<script src="assets/js/Common_model.js"></script>
 	<script type="text/javascript">
 		$(function(){
+			/** 登录
+			 * @param  {[type]}
+			 * @return {[type]}
+			 */
 			$('#login-submit').on('click',function(e){
 				e.preventDefault();
-				var _username=$('#login-username').val();
-				var _password=$('#login-password').val();
+				var _username=$('#login-username').val(); //用户名
+				var _password=$('#login-password').val(); //密码
 
+				/*用户名不为空*/
 				if(!_username){
 					JafeneyAlert("温馨提示","用户名不能为空！");
 					$('#JafeneyAlert').modal();
 					return false;		
 				}
+
+				/*密码不为空*/
 				if(!_password){
 					JafeneyAlert("温馨提示","登录密码不能为空！");	
 					$('#JafeneyAlert').modal();
 					return false;	
 				}
 
-				if(_username==="seyaney" && _password==="123456"){
-					window.localStorage.login_user="seyaney";
-					location.href="./admin-index.html";
-				}else{
-					JafeneyAlert("温馨提示","用户名或者密码不正确！");
-					$('#JafeneyAlert').modal();
-					return false;
-				}
-				
+				/*Ajax校验登录信息*/
+				$.getJSON('http://www.hms.com/HMS/API/action/admin/login.act.php?a_name='+_username+'&a_pwd='+_password,function(res){
+					console.log(res);
+					if(res){
+						if(_username==="seyaney" && _password==="123456"){
+							window.localStorage.login_user="seyaney";
+							location.href="./admin-index.html";
+						}else{
+							JafeneyAlert("温馨提示","用户名或者密码不正确！");
+							$('#JafeneyAlert').modal();
+							return false;
+						}
+					}
+				});
 			});
 		});
 	</script>

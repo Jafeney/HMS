@@ -64,11 +64,6 @@ $(document).ready(function() {
 		$(this).animate({ opacity: 0 }, 300);
 	});
 	
-	// PrettyPhoto
-	$(document).ready(function(){
-		$("a[rel^='prettyPhoto']").prettyPhoto();
-	});
-	
 	// Slides Loader
 	$("#slides").removeClass("slide-loader");
 	
@@ -105,7 +100,9 @@ $(document).ready(function() {
 	});
 	
 	// Datepicker
-	$(".datepicker").datepicker();
+	$(".datepicker").datepicker({
+		
+	});
 	
 	var map_toggle  = "closed";
 	

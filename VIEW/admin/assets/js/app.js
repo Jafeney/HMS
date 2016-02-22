@@ -1,6 +1,10 @@
 (function($) {
 	'use strict';
 	$(function(){
+
+		/*后端PHP接口的根目录*/
+		var APIURL="http://www.hms.com/HMS/API/action/admin/";
+
 		/**
 		 * @page global
 		 * @desc 全局脚本模块
@@ -70,8 +74,13 @@
 				}
 			});
 
-			//获取用户登陆信息
-			
+			//获取顶部状态信息
+			$.getJSON(APIURL+'sideBar_info.act.php',function(res){
+				if(res){
+					$('#login-name').html(res.username);
+					$('.new-message-count').html(res.messageCount);
+				}
+			});
 		})();	
 		
 		/**
@@ -80,41 +89,123 @@
 		 */
 		var IndexModule=(function(){
 			/**
-			 * @desc 保存密码
+			 * @desc 主体内容加载
+			 */
+			$.getJSON(APIURL+'index_data.act.php',function(res){
+				if(res){
+					console.log(res);
+					//今日订单
+					$('#today-order-count').html(res.orderCount); 
+					//今日客户
+					$('#today-customer-count').html(res.customerCount);
+					//今日收入
+					$('#today-income').html("￥"+res.income);
+					//今日留言
+					$('#today-message-count').html(res.messageCount);
+					//用户名
+					$('#input-username').val(res.userName);
+					//常住地址
+					$('#input-address').val(res.address);
+					//邮箱
+					$('#input-email').val(res.email);
+					//联系电话
+					$('#input-phone').val(res.phone);
+				}
+			});
+
+			/**
+			 * @desc 修改密码
 			 */
 			$('#save_password').on('click',function(){
 				$('#all_operate').empty();
-				var flag=1;
-				//===================
-				///这里写入相关的Ajax操作
-				//===================
 				
-				//如果成功
-				if(flag){
-					JafeneyAlert("温馨提示","新密码修改成功！");		
+				var _oldpwd=$('#tb_oldpwd').val();
+				var _newpwd=$('#tb_newpwd').val();
+				var _renewpwd=$('#tb_repwd').val();
+
+				if(_oldpwd && _newpwd && _renewpwd){
+					if(_newpwd!==_renewpwd){
+						JafeneyAlert("温馨提示","两次密码输入不一致！");
+						$('#JafeneyAlert').modal();
+						return false;
+					}else{
+						$.ajax({
+							type:'get',
+							url:APIURL+'change_password.act.php',
+							data:{
+								oldpwd:_oldpwd,
+								newpwd:_newpwd
+							},
+							dataType:'json',
+							success:function(res){
+								if(res.res==-1){
+									JafeneyAlert("温馨提示","旧密码不正确！");
+									$('#JafeneyAlert').modal();
+									return false;
+								}else if(res.res==1){
+									JafeneyAlert("温馨提示","恭喜！密码修改成功！");
+									$('#JafeneyAlert').modal();
+								}else{
+									JafeneyAlert("温馨提示","抱歉！请重试！");
+									$('#JafeneyAlert').modal();
+									return false;
+								}
+							}
+						});
+					}
 				}else{
-					JafeneyAlert("温馨提示","操作失败！请重试");		
-					
-				}
-				$('#JafeneyAlert').modal();
+					JafeneyAlert("温馨提示","请确保以上三项都不为空！");
+					$('#JafeneyAlert').modal();
+					return false;	
+				}				
 			});
 			/**
-			 * @desc 保存个人信息
+			 * @desc 修改个人信息
 			 */
 			$('#save_person_info').on('click',function(){
 				$('#all_operate').empty();
-				var flag=1;
-				//===================
-				///这里写入相关的Ajax操作
-				//===================
-				
-				//如果成功
-				if(flag){
-					JafeneyAlert("温馨提示","个人信息修改成功！");		
+
+				var _userName=$('#input-username').val();
+				var _address=$('#input-address').val();
+				var _email=$('#input-email').val();
+				var _phone=$('#input-phone').val();
+
+				if(_userName && _address && _email && _phone){
+					if(_phone.length!==11){
+						JafeneyAlert("温馨提示","手机号码格式不正确！");
+						$('#JafeneyAlert').modal();
+						return false;
+					}else{
+						$.ajax({
+							type:'get',
+							url:APIURL+'change_password.act.php',
+							data:{
+								userName:_userName,
+								address:_address,
+								email:_email,
+								phone:_phone
+							},
+							dataType:'json',
+							success:function(res){
+								if(res){
+									JafeneyAlert("温馨提示","个人信息修改成功！");
+									$('#JafeneyAlert').modal();
+								}
+							}
+						});
+					}
 				}else{
-					JafeneyAlert("温馨提示","操作失败！请重试");		
-				}
-				$('#JafeneyAlert').modal();
+					JafeneyAlert("温馨提示","请确保以上四项都不为空！");
+					$('#JafeneyAlert').modal();
+					return false;	
+				}				
+			});
+
+			/**
+			 * @desc 取消操作（刷新页面重新加载旧数据）
+			 */
+			$('.index-submit-cancel').on('click',function(){
+				location.replace(location.href);
 			});
 		})();
 

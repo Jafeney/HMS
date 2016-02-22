@@ -1472,7 +1472,7 @@ ul.comment-list li li {
 
 .event-prev .event-prev-content {
 	float: left;
-	width: 230px;
+	width: 540px;
 	margin: 0 0 0 20px;
 }
 
@@ -2182,3 +2182,37 @@ span.zoom-wrapper span.zoom {
 .style_picker_toggle_open {
 	background: url(../images/style.png) #fff bottom left;
 }
+
+/*prettyPhoto-viewer*/
+.view-mask{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+	top: 0;
+	left: 0;
+	z-index: 9999;
+}
+.view-mask>img{
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	margin:auto;
+	cursor: pointer;
+}
+
+.mylist{
+	font-size:0;
+}
+.mylist>li{
+	display: inline-block;
+	vertical-align: top;
+	font-size:12px;
+	width:150px;
+	padding-top: 5px; 
+	padding-left: 22px;
+	background: url(../images/list3.png) no-repeat left center;
+}
+
