@@ -454,9 +454,58 @@
 		 */ 
 		var UserManageModule=(function(){
 			/**
+			 * @desc 加载客户列表
+			 */
+			var _page=0;  //初始页号 
+			var _rows=10;  //初始行号
+
+			$.ajax({
+				type:'get',
+				url:APIURL+'users_data.act.php',
+				data:{
+					page:_page,
+					rows:_rows
+				},
+				dataType:'json',
+				success:function(res){
+					var i=0,
+						len=res.length,
+						_htmlArr=[];
+
+					for(i=0;i<len;i++){
+						_htmlArr[i]=[
+						'<tr>',
+							'<td><input type="text" class="checkbox check-single" data-id='+res[i].c_id+' /></td>',
+							'<td>'+res[i].c_id+'</td>',
+							'<td>'+res[i].c_name+'</td>',
+							'<td>'+res[i].c_IDcard+'</td>',
+							'<td class="am-hide-sm-only am-text-center">'+res[i].c_sex+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_phone+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_address+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_upTime+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_rank+'</td>',
+							'<td><div class="am-btn-toolbar">',
+								'<div class="am-btn-group am-btn-group-xs">',
+									'<button class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
+										'<span class="am-icon-pencil-square-o"></span> 编辑',
+									'</button>',
+									'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
+										'<span class="am-icon-trash-o "></span> 删除</button>',
+									'</div>',
+								'</div>',
+							'</td>',
+						'</tr>'
+						].join('');
+					}
+					$('#user-list').html(_htmlArr.join(''));
+				}
+			})
+
+			/**
 			 * @desc 添加客户的模态窗口
 			 */
-			$('#content-users .am-icon-plus').parent().on('click',function(){
+			$('#content-users').on('click','.edit-user',function(e){
+				e.preventDefault();
 				$('#all_operate').empty();
 				JafeneyPromptAddUser("添加新客户");	
 				$('#JafeneyPrompt').modal({
@@ -477,6 +526,7 @@
 			        }
 				});
 			});
+			
 			/**
 			 * @desc 编辑客户的模态窗口
 			 */

@@ -5,7 +5,10 @@
 	/*引入公共方法库*/
 	require 'E:/wamp/www/HMS/API/util/common.php';
 
-	/*修改用户密码*/
+	/**
+	 * @desc 修改用户密码
+	 * @example http://www.hms.com/HMS/API/action/admin/change_password.act.php?oldpwd=123456&newpwd=1234567
+	 */
 	$a_id=$_COOKIE['userId'];
 	$oldpwd=$_GET['oldpwd'];
 	$newpwd=$_GET['newpwd'];
