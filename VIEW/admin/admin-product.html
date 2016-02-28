@@ -33,9 +33,9 @@
 				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
 					<li><a href="#"><span class="am-icon-user"></span> 欢迎登录！尊敬的 <label id="login-name">seyaney</label></a>
 					</li>
-					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning ">5</span></a>
+					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning new-message-count">0</span></a>
 					</li>
-					<li><a href="./login.html"><span class="am-icon-power-off"></span> 退出</a>
+					<li><a href="javascript:void(0)" id="login-out"><span class="am-icon-power-off"></span> 退出</a>
 					</li>
 				</ul>
 			</div>
@@ -71,7 +71,7 @@
 									<a href="admin-news.html">新闻管理</a>
 								</li>
 								<li>
-									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr">5</span></a>
+									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr new-message-count">0</span></a>
 								</li>
 							</ul>
 						</li>
@@ -103,21 +103,13 @@
 				<div class="am-g">
 					<div class="am-u-sm-12 am-u-md-12">
 						<div class="am-u-sm-12 am-u-md-6">
-						<div class="am-btn-toolbar">
-							<div class="am-btn-group am-btn-group-xs am-margin-bottom-sm">
-								<button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-								<button type="button" class="am-btn am-btn-default delete-some"><span class="am-icon-trash-o"></span> 删除</button>
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs am-margin-bottom-sm">
+									<button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+									<button type="button" class="am-btn am-btn-default delete-some"><span class="am-icon-trash-o"></span> 删除</button>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="am-u-sm-12 am-u-md-3">
-						<div class="am-input-group am-input-group-sm">
-							<input type="text" class="am-form-field" placeholder="输入文档的标题或者关键字搜索">
-							<span class="am-input-group-btn">
-            					<button class="am-btn am-btn-default" type="button" style="">搜索</button>
-          					</span>
-						</div>
-					</div>
 					</div>
 				</div>
 
@@ -131,12 +123,12 @@
 											<input type="text" class="checkbox " title="全选" id="checkAll" />
 										</th>
 										<th class="table-id">ID</th>
-										<th class="table-title">产品名称</th>
+										<th class="table-title">名称</th>
 										<th class="table-type">预览图</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 产品简介</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 产品价格</th>
+										<th class="table-date am-hide-sm-only am-text-center"> 简介</th>
+										<th class="table-date am-hide-sm-only am-text-center"> 价格</th>
 										<th class="table-date am-hide-sm-only am-text-center"> 更新时间</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 排序权重</th>
+										<th class="table-date am-hide-sm-only am-text-center"> 排序</th>
 										<th class="table-set am-text-center">操作</th>
 									</tr>
 								</thead>
@@ -165,21 +157,14 @@
 
 								</tbody>
 							</table>
-							<div class="am-cf am-text-sm">
-								共 15 条记录
-								<div class="am-fr">
-									<ul class="am-pagination">
-										<li class="am-disabled"><a href="#">«</a>
-										</li>
-										<li class="am-active"><a href="#">1</a>
-										</li>
-										<li><a href="#" class="am-hide-sm-only">2</a>
-										</li>
-										<li><a href="#">»</a>
-										</li>
-									</ul>
-								</div>
-							</div>
+							<ul class="am-pagination am-fr admin-content-pagination am-margin-top-xl">
+								<li class="am-disabled"><a href="#">&laquo;</a>
+								</li>
+								<li class="am-active"><a href="#">1</a>
+								</li>
+								<li><a href="#">&raquo;</a>
+								</li>
+							</ul>
 							<hr />
 						</form>
 					</div>
@@ -210,7 +195,8 @@
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/amazeui.min.js"></script>
 		<!--<![endif]-->
-		<script src="assets/js/Common_model.js"></script>
+		<script src="assets/js/common_model.js"></script>
+		<script src="assets/js/common_operate.js"></script>
 		<script src="assets/js/app.js"></script>
 	</body>
 

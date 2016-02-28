@@ -22,6 +22,7 @@
     $sql = "select * from customer where c_isDel=0 order by c_upTime desc limit $page_start,$page_rows";
     $res = $_mysqli->db_query_all($sql);
 
-    echo formatJson($res);
-
+    if(sizeof($res)){
+    	echo formatJson($res);
+    }
 ?>

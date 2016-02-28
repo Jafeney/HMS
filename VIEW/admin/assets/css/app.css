@@ -35,3 +35,15 @@
 .checkbox.checked{
 	background:url(http://n.baai.com/baai/uploadfile/2015/07/03/201507031412433771.png) 50% 50% no-repeat !important;
 }
+
+.table-main * {
+	font-size: 12px;
+}
+
+.tab-header {
+	color: #999;
+	cursor: pointer;
+}
+.tab-header.active{
+	color: #333;
+}

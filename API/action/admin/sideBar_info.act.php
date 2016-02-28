@@ -14,7 +14,7 @@
 	$source['username']=$_COOKIE['userName'];
 
 	// 获取未读通知条数
-	$sql="select * from message where m_isRead=0";
+	$sql="select * from message where m_isRead=0 and m_isDel=0";
 	$res=$_mysqli->db_query_all($sql);
 	$source['messageCount']=count($res);
 

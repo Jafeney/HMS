@@ -33,9 +33,9 @@
 				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
 					<li><a href="#"><span class="am-icon-user"></span> 欢迎登录！尊敬的 <label id="login-name">seyaney</label></a>
 					</li>
-					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning ">5</span></a>
+					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning new-message-count">0</span></a>
 					</li>
-					<li><a href="./login.html"><span class="am-icon-power-off"></span> 退出</a>
+					<li><a href="javascript:void(0)" id="login-out"><span class="am-icon-power-off"></span> 退出</a>
 					</li>
 				</ul>
 			</div>
@@ -71,7 +71,7 @@
 									<a href="admin-news.html">新闻管理</a>
 								</li>
 								<li>
-									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr">5</span></a>
+									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr new-message-count">0</span></a>
 								</li>
 							</ul>
 						</li>
@@ -118,10 +118,10 @@
 
 				<div class="am-g am-padding">
 					<div class="am-panel am-panel-default am-padding-bottom-lg">
-						<div class="am-panel-hd am-cf">
-							<span style="cursor: pointer;">全部留言 <span class="am-badge am-badge-secondary am-margin-right-sm">25</span></span>
-							<span style="cursor: pointer;">待阅留言 <span class="am-badge am-badge-warning am-margin-right-sm">5</span></span>
-							<span style="cursor: pointer;">已阅留言 <span class="am-badge am-badge-success">20</span></span>
+						<div class="am-panel-hd am-cf" style="font-size: 12px;">
+							<span class="tab-header active" data-id="1">全部留言 <span id="count-all" class="am-badge am-badge-secondary am-margin-right-sm">25</span></span>
+							<span class="tab-header" data-id="2">待阅留言 <span class="am-badge am-badge-warning am-margin-right-sm" id="count-needRead">5</span></span>
+							<span class="tab-header" data-id="3">已阅留言 <span class="am-badge am-badge-success" id="count-hasRead">20</span></span>
 							<span class="am-icon-chevron-down am-fr"></span>
 						</div>
 						<div class="am-panel-bd am-collapse am-in am-cf" id="collapse-panel-3">
@@ -137,20 +137,17 @@
 									<div class="am-cf">
 										<div class="am-btn-toolbar am-fr">
 											<div class="am-btn-group am-btn-group-xs">
-												<button type="button" class="am-btn am-btn-default looked-message"><span class="am-icon-check"></span></button>
-												<button type="button" class="am-btn am-btn-default delete-message"><span class="am-icon-times"></span></button>
+												<button data-id="1" type="button" class="am-btn am-btn-default looked-message"><span class="am-icon-check"></span></button>
+												<button data-id="1" type="button" class="am-btn am-btn-default delete-message"><span class="am-icon-times"></span></button>
 											</div>
 										</div>
 									</div>
 								</li>
-
 							</ul>
 							<ul class="am-pagination am-fr admin-content-pagination am-margin-top-xl">
 								<li class="am-disabled"><a href="#">&laquo;</a>
 								</li>
 								<li class="am-active"><a href="#">1</a>
-								</li>
-								<li><a href="#" class="am-hide-sm-only">2</a>
 								</li>
 								<li><a href="#">&raquo;</a>
 								</li>
@@ -185,7 +182,8 @@
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/amazeui.min.js"></script>
 		<!--<![endif]-->
-		<script src="assets/js/Common_model.js"></script>
+		<script src="assets/js/common_model.js"></script>
+		<script src="assets/js/common_operate.js"></script>
 		<script src="assets/js/app.js"></script>
 	</body>
 

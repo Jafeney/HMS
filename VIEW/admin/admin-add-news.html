@@ -32,9 +32,9 @@
 				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
 					<li><a href="#"><span class="am-icon-user"></span> 欢迎登录！尊敬的 <label id="login-name">seyaney</label></a>
 					</li>
-					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning ">5</span></a>
+					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning new-message-count">0</span></a>
 					</li>
-					<li><a href="./login.html"><span class="am-icon-power-off"></span> 退出</a>
+					<li><a href="javascript:void(0)" id="login-out"><span class="am-icon-power-off"></span> 退出</a>
 					</li>
 				</ul>
 			</div>
@@ -70,7 +70,7 @@
 									<a href="admin-news.html">新闻管理</a>
 								</li>
 								<li>
-									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr">5</span></a>
+									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right new-message-count am-fr">0</span></a>
 								</li>
 							</ul>
 						</li>
@@ -160,7 +160,8 @@
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/amazeui.min.js"></script>
 		<!--<![endif]-->
-		<script src="assets/js/Common_model.js"></script>
+		<script src="assets/js/common_model.js"></script>
+		<script src="assets/js/common_operate.js"></script>
 		<script src="assets/js/app.js"></script>
 		<!--
 	作者：692270687@qq.com

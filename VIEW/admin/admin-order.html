@@ -33,9 +33,9 @@
 				<ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
 					<li><a href="#"><span class="am-icon-user"></span> 欢迎登录！尊敬的 <label id="login-name">seyaney</label></a>
 					</li>
-					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning ">5</span></a>
+					<li><a href="javascript:;">通知 <span class="am-icon-envelope-o"></span> <span class="am-badge am-badge-warning new-message-count">0</span></a>
 					</li>
-					<li><a href="./login.html"><span class="am-icon-power-off"></span> 退出</a>
+					<li><a href="javascript:void(0)" id="login-out"><span class="am-icon-power-off"></span> 退出</a>
 					</li>
 				</ul>
 			</div>
@@ -71,7 +71,7 @@
 									<a href="admin-news.html">新闻管理</a>
 								</li>
 								<li>
-									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr">5</span></a>
+									<a href="admin-message.html">留言管理 <span class="am-badge am-badge-warning am-margin-right am-fr new-message-count">0</span></a>
 								</li>
 							</ul>
 						</li>
@@ -104,21 +104,13 @@
 				<div class="am-g">
 					<div class="am-u-sm-12 am-u-md-12">
 						<div class="am-u-sm-12 am-u-md-6">
-						<div class="am-btn-toolbar">
-							<div class="am-btn-group am-btn-group-xs am-margin-bottom-sm">
-								<button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-								<button type="button" class="am-btn am-btn-default delete-some"><span class="am-icon-trash-o"></span> 删除</button>
+							<div class="am-btn-toolbar">
+								<div class="am-btn-group am-btn-group-xs am-margin-bottom-sm">
+									<button id="order-add" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+									<button type="button" class="am-btn am-btn-default delete-some"><span class="am-icon-trash-o"></span> 删除</button>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="am-u-sm-12 am-u-md-3">
-						<div class="am-input-group am-input-group-sm">
-							<input type="text" class="am-form-field" placeholder="输入文档的标题或者关键字搜索">
-							<span class="am-input-group-btn">
-            					<button class="am-btn am-btn-default" type="button" style="">搜索</button>
-          					</span>
-						</div>
-					</div>
 					</div>
 				</div>
 
@@ -132,12 +124,15 @@
 											<input type="text" class="checkbox" title="全选" id="checkAll" />
 										</th>
 										<th class="table-id">ID</th>
-										<th class="table-title">客户名称</th>
+										<th class="table-title">客户名</th>
+										<th class="table-title">套餐名</th>
 										<th class="table-type am-text-center">下单时间</th>
-										<th class="table-type">应付金额</th>
-										<th class="table-type am-hide-sm-only am-text-center">是否支付</th>
+										<th class="table-type am-text-center">入住日期</th>
+										<th class="table-type am-text-center">离开日期</th>
+										<th class="table-type am-hide-sm-only">应付金额</th>
+										<th class="table-type am-hide-sm-only am-text-center">支付</th>
 										<th class="table-date am-hide-sm-only am-text-center"> 支付时间</th>
-										<th class="table-date am-hide-sm-only am-text-center"> 排序权重</th>
+										<th class="table-date am-hide-sm-only am-text-center"> 排序</th>
 										<th class="table-set">操作</th>
 									</tr>
 								</thead>
@@ -149,7 +144,10 @@
 										</td>
 										<td>1</td>
 										<td>王大宝</td>
+										<td>单人标准房</td>
 										<td class="am-text-center">2015-9-15 12:25:30</td>
+										<td class="am-text-center">2015-9-15 </td>
+										<td class="am-text-center">2015-9-17 </td>
 										<td class="am-hide-sm-only">¥120.00</td>
 										<td class="am-hide-sm-only am-text-center">是</td>
 										<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>
@@ -157,8 +155,7 @@
 										<td>
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
-													<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-													<button class="am-btn am-btn-default am-btn-xs am-text-default"><span class="am-icon-tasks"></span> 详情</button>
+													<button class="am-btn am-btn-default am-btn-xs am-text-secondary edit-order"><span class="am-icon-pencil-square-o"></span> 编辑</button>
 													<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-order" ><span class="am-icon-trash-o "></span> 删除</button>
 												</div>
 											</div>
@@ -167,27 +164,14 @@
 
 								</tbody>
 							</table>
-							<div class="am-cf am-text-sm">
-								共 15 条记录
-								<div class="am-fr">
-									<ul class="am-pagination">
-										<li class="am-disabled"><a href="#">«</a>
-										</li>
-										<li class="am-active"><a href="#">1</a>
-										</li>
-										<li><a href="#">2</a>
-										</li>
-										<li><a href="#">3</a>
-										</li>
-										<li><a href="#">4</a>
-										</li>
-										<li><a href="#" class="am-hide-sm-only">5</a>
-										</li>
-										<li><a href="#">»</a>
-										</li>
-									</ul>
-								</div>
-							</div>
+							<ul class="am-pagination am-fr admin-content-pagination am-margin-top-xl">
+								<li class="am-disabled"><a href="#">&laquo;</a>
+								</li>
+								<li class="am-active"><a href="#">1</a>
+								</li>
+								<li><a href="#">&raquo;</a>
+								</li>
+							</ul>
 							<hr />
 						</form>
 					</div>
@@ -218,7 +202,8 @@
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/amazeui.min.js"></script>
 		<!--<![endif]-->
-		<script src="assets/js/Common_model.js"></script>
+		<script src="assets/js/common_model.js"></script>
+		<script src="assets/js/common_operate.js"></script>
 		<script src="assets/js/app.js"></script>
 	</body>
 

@@ -2,9 +2,6 @@
 	'use strict';
 	$(function(){
 
-		/*后端PHP接口的根目录*/
-		var APIURL="http://www.hms.com/HMS/API/action/admin/";
-
 		/**
 		 * @page global
 		 * @desc 全局脚本模块
@@ -46,22 +43,6 @@
 					$('#checkAll').removeClass('checked');
 				}
 			});
-
-			/*测试是否已经触发了全选的情形*/
-			function testAllChecked(){
-				var source=$('.check-single');
-				var flag=true;
-				$.each(source,function(i){
-					if(!source.eq(i).hasClass('checked')){
-						flag=false;
-					}
-				});
-				if(flag){
-					$('#checkAll').addClass('checked');
-				}else{
-					$('#checkAll').removeClass('checked');
-				}
-			}
 			
 			//全选
 			$('#checkAll').on('click',function(){
@@ -81,7 +62,23 @@
 					$('.new-message-count').html(res.messageCount);
 				}
 			});
-		})();	
+
+			//检查用户登录状态
+			$.getJSON(APIURL+'check_login.act.php',function(res){
+				if(!res.res){
+					location.href="./login.html";
+				}
+			});
+
+			//注销登录
+			$('#login-out').on('click',function(){
+				$.getJSON(APIURL+'login_out.act.php',function(res){
+					if(res.res){
+						location.href="./login.html";
+					}
+				});
+			});
+		})();
 		
 		/**
 		 * @page admin-index
@@ -220,7 +217,6 @@
 			$('#content-image .am-icon-plus').parent().on('click',function(e){
 				e.preventDefault();
 				AddOne('图片',JafeneyPromptAddImage,function(){
-					console.log('图片插入成功！');
 					var source={
 						id:5,
 						name:'单人标准房',
@@ -232,9 +228,7 @@
 					};
 					var newTr='<tr><td><input type="text" class="checkbox check-single" data-id="1" /></td><td>'+source.id+'</td><td>'+source.name+'</td><td>'+source.thumb+'</td><td class="am-hide-sm-only am-text-center">'+source.intro+'</td><td class="am-hide-sm-only am-text-center">'+source.link+'</td><td class="am-hide-sm-only am-text-center">'+source.createTime+'</td><td class="am-hide-sm-only am-text-center">'+source.rank+'</td><td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs"><button class="am-btn am-btn-default am-btn-xs am-text-secondary edit-image" data-id='+source.id+'><span class="am-icon-pencil-square-o"></span> 编辑</button><button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-image" data-id='+source.id+'><span class="am-icon-trash-o "></span> 删除</button></div></div></td></tr>';
 					$('#image-list').append(newTr);
-					if($('.CheckAllButton').prop('checked')){
-						$('.CheckAllButton').trigger('click');
-					}
+					testAllChecked();
 				});
 			});
 			/**
@@ -256,6 +250,7 @@
 				e.preventDefault();
 				DeleteOne('图片',function(){
 					_self.parent().parent().parent().parent().remove();
+					testAllChecked();
 				});
 			});
 			
@@ -264,12 +259,9 @@
 			 */
 			$('#content-image .delete-some').on('click',function(e){
 				e.preventDefault();
-				DeleteSome('图片','#content-image',function(){
-					//$('#content-image').find('input[checked=checked]').parent().parent().remove();
-					console.log($('#content-image').find('input[checked=checked]'));
-					if($('.CheckAllButton').prop('checked')){
-						$('.CheckAllButton').trigger('click');
-					}
+				DeleteSome('图片',function(){
+					$('.check-single.checked').parent().parent().remove();
+					testAllChecked();
 				});
 			});
 		})();
@@ -456,153 +448,148 @@
 			/**
 			 * @desc 加载客户列表
 			 */
-			var _page=0;  //初始页号 
-			var _rows=10;  //初始行号
+			LoadData('users',0,function(res){
+				var i=0,
+					len=res.length,
+					_htmlArr=[];
+				for(i=0;i<len;i++){
+					_htmlArr[i]=[
+					'<tr>',
+						'<td><input type="text" class="checkbox check-single" data-id='+res[i].c_id+' /></td>',
+						'<td>'+res[i].c_id+'</td>',
+						'<td>'+res[i].c_name+'</td>',
+						'<td>'+txtLengthFormat(res[i].c_IDcard,10)+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+res[i].c_sex+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_phone+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+txtLengthFormat(res[i].c_address,5)+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_upTime+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_rank+'</td>',
+						'<td><div class="am-btn-toolbar">',
+							'<div class="am-btn-group am-btn-group-xs">',
+								'<button data-id='+res[i].c_id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
+									'<span class="am-icon-pencil-square-o"></span> 编辑',
+								'</button>',
+								'<button data-id='+res[i].c_id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
+									'<span class="am-icon-trash-o "></span> 删除</button>',
+								'</div>',
+							'</div>',
+						'</td>',
+					'</tr>'
+					].join('');
+				}
+				$('#user-list').html(_htmlArr.join(''));
+			});
 
-			$.ajax({
-				type:'get',
-				url:APIURL+'users_data.act.php',
-				data:{
-					page:_page,
-					rows:_rows
-				},
-				dataType:'json',
-				success:function(res){
-					var i=0,
-						len=res.length,
-						_htmlArr=[];
+			/**
+			 * @desc 添加客户的模态窗口
+			 */
+			$('#content-users').on('click','#user-add',function(e){
+				e.preventDefault();
 
-					for(i=0;i<len;i++){
-						_htmlArr[i]=[
+				AddOne('客户',JafeneyPromptAddUser,function(){
+					var source={
+						id: 5,
+						name: '盛燕妮',
+						IDcard: '3330683199311137014',
+						sex: '女',
+						phone: '18367854560',
+						address: '温州医科大学',
+						upTime: '2016-02-29 12:23:00',
+						rank: 1
+					};
+					var newTr=[
 						'<tr>',
-							'<td><input type="text" class="checkbox check-single" data-id='+res[i].c_id+' /></td>',
-							'<td>'+res[i].c_id+'</td>',
-							'<td>'+res[i].c_name+'</td>',
-							'<td>'+res[i].c_IDcard+'</td>',
-							'<td class="am-hide-sm-only am-text-center">'+res[i].c_sex+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_phone+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_address+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_upTime+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_rank+'</td>',
+							'<td><input type="text" class="checkbox check-single" data-id='+source.id+' /></td>',
+							'<td>'+source.id+'</td>',
+							'<td>'+source.name+'</td>',
+							'<td>'+txtLengthFormat(source.IDcard,10)+'</td>',
+							'<td class="am-hide-sm-only am-text-center">'+source.sex+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.phone+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+txtLengthFormat(source.address,5)+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.upTime+'</td>',
+							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.rank+'</td>',
 							'<td><div class="am-btn-toolbar">',
 								'<div class="am-btn-group am-btn-group-xs">',
-									'<button class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
+									'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
 										'<span class="am-icon-pencil-square-o"></span> 编辑',
 									'</button>',
-									'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
+									'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
 										'<span class="am-icon-trash-o "></span> 删除</button>',
 									'</div>',
 								'</div>',
 							'</td>',
 						'</tr>'
-						].join('');
-					}
-					$('#user-list').html(_htmlArr.join(''));
-				}
-			})
+					].join('');
 
-			/**
-			 * @desc 添加客户的模态窗口
-			 */
-			$('#content-users').on('click','.edit-user',function(e){
-				e.preventDefault();
-				$('#all_operate').empty();
-				JafeneyPromptAddUser("添加新客户");	
-				$('#JafeneyPrompt').modal({
-					relatedTarget: this,
-			        onConfirm: function(e) {
-			        	var flag=1;
-			          	
-			          	//如果成功
-						if(flag){
-							JafeneyAlert("温馨提示","新客户添加成功！客户信息为："+e.data||'');		
-						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function(e) {
-			          //什么都不做
-			        }
+					$('#user-list').append(newTr);
+					testAllChecked();
 				});
 			});
 			
 			/**
 			 * @desc 编辑客户的模态窗口
 			 */
-			$('#content-users .am-icon-pencil-square-o').parent().on('click',function(e){
+			$('#content-users').on('click','.edit-user',function(e){
 				e.preventDefault();
-				$('#all_operate').empty();
-				JafeneyPromptAddUser("修改新客户");	
-				$('#JafeneyPrompt').modal({
-					relatedTarget: this,
-			        onConfirm: function(e) {
-			        	var flag=1;
-			          	
-			          	//如果成功
-						if(flag){
-							JafeneyAlert("温馨提示","客户信息修改成功！客户信息为："+e.data||'');	
-						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function(e) {
-			          //什么都不做
-			        }
+				var self= $(this);
+				UpdateOne('客户',JafeneyPromptAddUser,function(){
+					var source={
+						id: 5,
+						name: 'seyaney',
+						IDcard: '3330683199311137014',
+						sex: '女',
+						phone: '18367854560',
+						address: '温州医科大学',
+						upTime: '2016-02-29 12:23:00',
+						rank: 1
+					};
+					var updateTr=[
+						'<td><input type="text" class="checkbox check-single" data-id='+source.id+' /></td>',
+						'<td>'+source.id+'</td>',
+						'<td>'+source.name+'</td>',
+						'<td>'+txtLengthFormat(source.IDcard,10)+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+source.sex+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.phone+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+txtLengthFormat(source.address,5)+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.upTime+'</td>',
+						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.rank+'</td>',
+						'<td><div class="am-btn-toolbar">',
+							'<div class="am-btn-group am-btn-group-xs">',
+								'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
+									'<span class="am-icon-pencil-square-o"></span> 编辑',
+								'</button>',
+								'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
+									'<span class="am-icon-trash-o "></span> 删除</button>',
+								'</div>',
+							'</div>',
+						'</td>',
+					].join('');
+
+					self.parent().parent().parent().parent().html(updateTr);
+					testAllChecked();
 				});
 			});
+
 			/**
 			 * @desc 单个客户删除的模态窗口
 			 */
-			$('#content-users .delete-user').on('click',function(e){
+			$('#content-users').on('click','.delete-user',function(e){
 				e.preventDefault();
-				$('#all_operate').empty();
-				JafeneyComfirm("温馨提示","您确定要删除该客户吗？");	
-				$('#JafeneyComfirm').modal({
-					relatedTarget: this,
-			        onConfirm: function(options) {
-			        	var flag=0;
-			          	
-						if(flag){
-							JafeneyAlert("温馨提示","该客户已被成功删除！");		
-						}else{
-							JafeneyAlert("温馨提示","删除失败请重试！");		
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function() {
-			          //什么都不做
-			        }
+				var self=$(this);
+				DeleteOne('客户',function(){
+					self.parent().parent().parent().parent().remove();
+					testAllChecked();
 				});
 			});
+
 			/**
 			 * @desc 批量删除客户的模态窗口
 			 */
 			$('#content-users .delete-some').on('click',function(e){
-				$('#all_operate').empty();
 				e.preventDefault();
-				JafeneyComfirm("温馨提示","您确定要删除这些客户吗？");	
-				$('#JafeneyComfirm').modal({
-					relatedTarget: this,
-			        onConfirm: function(options) {
-			        	var checkBoxs=$('#content-users input[type=checkbox]');
-						var selectItems=[];
-						$.each(checkBoxs,function(idx,item){
-							if(checkBoxs.eq(idx).prop('checked')){
-								selectItems.push(checkBoxs.eq(idx).data('id'));
-							}
-						});
-						if(selectItems.length===0){
-							JafeneyAlert("温馨提示","请先勾选要删除的内容！");	
-						}else{
-							JafeneyAlert("温馨提示","删除成功！");
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function() {
-			          //什么都不做
-			        }
+				DeleteSome('客户',function(){
+					$('.check-single.checked').parent().parent().remove();
+					testAllChecked();
 				});
 			});
 		})();
@@ -613,105 +600,123 @@
 		 */
 		var OrderManageModule=(function(){
 			/**
-			 * @desc 添加订单的模态窗口
+			 * @desc 添加客户的模态窗口
 			 */
-			$('#content-order .am-icon-plus').parent().on('click',function(){
-				$('#all_operate').empty();
-				JafeneyPromptAddOrder("添加新订单");	
-				$('#JafeneyPrompt').modal({
-					relatedTarget: this,
-			        onConfirm: function(e) {
-			        	var flag=1;
-			          
-			          	//如果成功
-						if(flag){
-							JafeneyAlert("温馨提示","新订单添加成功！订单信息为："+e.data||'');		
-						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function(e) {
-			          //什么都不做
-			        }
-				});
-			});
-			/**
-			 * @desc 编辑订单的模态窗口
-			 */
-			$('#content-order .am-icon-pencil-square-o').parent().on('click',function(e){
+			$('#content-order').on('click','#order-add',function(e){
 				e.preventDefault();
-				$('#all_operate').empty();
-				JafeneyPromptAddOrder("编辑订单");	
-				$('#JafeneyPrompt').modal({
-					relatedTarget: this,
-			        onConfirm: function(e) {
-			        	var flag=1;
-			          	
-			          	//如果成功
-						if(flag){
-							JafeneyAlert("温馨提示","订单修改成功！订单信息为："+e.data||'');	
-						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function(e) {
-			          //什么都不做
-			        }
+
+				AddOne('订单',JafeneyPromptAddUser,function(){
+					var source={
+						id: 5,
+						cName: 'seyaney',
+						pName: '单人标准房',
+						upTime: '2015-9-15 12:25:30',
+						inDate: '2015-9-15',
+						outDate: '18367854560',
+						total: '120.00',
+						isPay: '否',
+						payDate: '2015-9-15 12:25:30',
+						rank: 1
+					};
+					var newTr=[
+						'<tr>',
+							'<td>',
+								'<input type="text" class="checkbox check-single" data-id='+source.id+' />',
+							'</td>',
+							'<td>'+source.id+'</td>',
+							'<td>'+source.cName+'</td>',
+							'<td>'+source.pName+'</td>',
+							'<td class="am-text-center">'+source.upTime+'</td>',
+							'<td class="am-text-center">'+source.inDate+'</td>',
+							'<td class="am-text-center">'+source.outDate+'</td>',
+							'<td class="am-hide-sm-only">¥'+source.total+'</td>',
+							'<td class="am-hide-sm-only am-text-center">'+source.isPay+'</td>',
+							'<td class="am-hide-sm-only am-text-center">'+source.payDate+'</td>',
+							'<td class="am-hide-sm-only am-text-center">'+source.rank+'</td>',
+							'<td>',
+								'<div class="am-btn-toolbar">',
+									'<div class="am-btn-group am-btn-group-xs">',
+										'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-order"><span class="am-icon-pencil-square-o"></span> 编辑</button>',
+										'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-order" ><span class="am-icon-trash-o "></span> 删除</button>',
+									'</div>',
+								'</div>',
+							'</td>',
+						'</tr>'
+					].join('');
+
+					$('#order-list').append(newTr);
+					testAllChecked();
 				});
 			});
+			
 			/**
-			 * @desc 单个订单删除的模态窗口
+			 * @desc 编辑客户的模态窗口
 			 */
-			$('#content-order .delete-order').on('click',function(e){
+			$('#content-order').on('click','.edit-order',function(e){
 				e.preventDefault();
-				$('#all_operate').empty();
-				JafeneyComfirm("温馨提示","您确定要删除该订单吗？");	
-				$('#JafeneyComfirm').modal({
-					relatedTarget: this,
-			        onConfirm: function(options) {
-			        	var flag=0;
-			          	
-						if(flag){
-							JafeneyAlert("温馨提示","该订单已被成功删除！");		
-						}else{
-							JafeneyAlert("温馨提示","删除失败请重试！");		
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function() {
-			          //什么都不做
-			        }
+				var self= $(this);
+				UpdateOne('订单',JafeneyPromptAddUser,function(){
+					var source={
+						id: 5,
+						cName: '盛燕妮',
+						pName: '单人标准房',
+						upTime: '2015-9-15 12:25:30',
+						inDate: '2015-9-15',
+						outDate: '18367854560',
+						total: '120.00',
+						isPay: '否',
+						payDate: '2015-9-15 12:25:30',
+						rank: 1
+					};
+					var updateTr=[
+						'<td>',
+							'<input type="text" class="checkbox check-single" data-id='+source.id+' />',
+						'</td>',
+						'<td>'+source.id+'</td>',
+						'<td>'+source.cName+'</td>',
+						'<td>'+source.pName+'</td>',
+						'<td class="am-text-center">'+source.upTime+'</td>',
+						'<td class="am-text-center">'+source.inDate+'</td>',
+						'<td class="am-text-center">'+source.outDate+'</td>',
+						'<td class="am-hide-sm-only">¥'+source.total+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+source.isPay+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+source.payDate+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+source.rank+'</td>',
+						'<td>',
+							'<div class="am-btn-toolbar">',
+								'<div class="am-btn-group am-btn-group-xs">',
+									'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-order"><span class="am-icon-pencil-square-o"></span> 编辑</button>',
+									'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-order" ><span class="am-icon-trash-o "></span> 删除</button>',
+								'</div>',
+							'</div>',
+						'</td>'
+					].join('');
+
+					self.parent().parent().parent().parent().html(updateTr);
+					testAllChecked();
 				});
 			});
+
 			/**
-			 * @desc 批量删除订单的模态窗口
+			 * @desc 单个客户删除的模态窗口
+			 */
+			$('#content-order').on('click','.delete-order',function(e){
+				e.preventDefault();
+				var self=$(this);
+				DeleteOne('订单',function(){
+					self.parent().parent().parent().parent().remove();
+					testAllChecked();
+				});
+			});
+
+			/**
+			 * @desc 批量删除客户的模态窗口
 			 */
 			$('#content-order .delete-some').on('click',function(e){
-				$('#all_operate').empty();
 				e.preventDefault();
-				JafeneyComfirm("温馨提示","您确定要删除这些订单吗？");	
-				$('#JafeneyComfirm').modal({
-					relatedTarget: this,
-			        onConfirm: function(options) {
-			        	var checkBoxs=$('#content-order input[type=checkbox]');
-						var selectItems=[];
-						$.each(checkBoxs,function(idx,item){
-							if(checkBoxs.eq(idx).prop('checked')){
-								selectItems.push(checkBoxs.eq(idx).data('id'));
-							}
-						});
-						if(selectItems.length===0){
-							JafeneyAlert("温馨提示","请先勾选要删除的内容！");	
-						}else{
-							JafeneyAlert("温馨提示","删除成功！");
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function() {
-			          //什么都不做
-			        }
+				DeleteSome('新闻',function(){
+					$('.check-single.checked').parent().parent().remove();
+					testAllChecked();
 				});
 			});
 		})();
@@ -735,23 +740,10 @@
 			 */
 			$('#content-news .delete-news').on('click',function(e){
 				e.preventDefault();
-				$('#all_operate').empty();
-				JafeneyComfirm("温馨提示","您确定要删除该新闻吗？");	
-				$('#JafeneyComfirm').modal({
-					relatedTarget: this,
-			        onConfirm: function(options) {
-			        	var flag=1;
-			          	
-						if(flag){
-							JafeneyAlert("温馨提示","该新闻已被成功删除！");		
-						}else{
-							JafeneyAlert("温馨提示","删除失败请重试！");		
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function() {
-			          //什么都不做
-			        }
+				var self=$(this);
+				DeleteOne('订单',function(){
+					self.parent().parent().parent().parent().remove();
+					testAllChecked();
 				});
 			});
 
@@ -761,27 +753,9 @@
 			$('#content-news .delete-some').on('click',function(e){
 				$('#all_operate').empty();
 				e.preventDefault();
-				JafeneyComfirm("温馨提示","您确定要删除这些新闻吗？");	
-				$('#JafeneyComfirm').modal({
-					relatedTarget: this,
-			        onConfirm: function(options) {
-			        	var checkBoxs=$('#content-news input[type=checkbox]');
-						var selectItems=[];
-						$.each(checkBoxs,function(idx,item){
-							if(checkBoxs.eq(idx).prop('checked')){
-								selectItems.push(checkBoxs.eq(idx).data('id'));
-							}
-						});
-						if(selectItems.length===0){
-							JafeneyAlert("温馨提示","请先勾选要删除的内容！");	
-						}else{
-							JafeneyAlert("温馨提示","删除成功！");
-						}
-						$('#JafeneyAlert').modal();
-			        },
-			        onCancel: function() {
-			          //什么都不做
-			        }
+				DeleteSome('新闻',function(){
+					$('.check-single.checked').parent().parent().remove();
+					testAllChecked();
 				});
 			});
 		})();
@@ -791,24 +765,77 @@
 		 * @desc 留言管理模块
 		 */
 		var MessageMangeModule=(function(){
+
+			/**
+			 * @desc 加载初始化数据
+			 */
+			LoadData('messages',0,function(res){
+				$('#count-all').text(res.all);
+				$('#count-needRead').text(res.needRead);
+				$('#count-hasRead').text(res.hasRead);
+				var data=res.res;
+				var source=[];
+				for(var i=0,len=data.length;i<len;i++){
+					source[i] =[
+						'<li>',
+							'<div class="admin-task-meta">',
+							'<input type="text" style="top:-2px;" class="checkbox check-single" data-id="'+data[i].m_id+'" />',
+							'<span class="am-text-danger">'+data[i].m_userName+'</span> &nbsp; &nbsp;<span>'+data[i].m_upTime+'</span> &nbsp; &nbsp;<span class="am-text-defualt">'+data[i].m_phone+'</span>  &nbsp; &nbsp;<span class="am-text-defualt">'+data[i].m_email+'</span><span class="am-text-defualt am-fr operate-time">'+data[i].m_operateTime+'</span>',
+							'</div>',
+							'<div class="admin-task-bd am-padding-left-sm">'+data[i].m_content,
+							'</div>',
+							'<div class="am-cf">',
+								'<div class="am-btn-toolbar am-fr">',
+									'<div class="am-btn-group am-btn-group-xs">',
+										'<button data-id="'+data[i].m_id+'" type="button" class="am-btn am-btn-default looked-message"><span class="am-icon-check"></span></button>',
+										'<button data-id="'+data[i].m_id+'"  type="button" class="am-btn am-btn-default delete-message"><span class="am-icon-times"></span></button>',
+									'</div>',
+								'</div>',
+							'</div>',
+						'</li>'
+					].join('');
+				}
+				$('#message-list').html(source.join(''));
+
+				// 做一次判断，如果留言已阅 则无法继续审阅，只能删除
+				var arr=$('.operate-time');
+				$.each(arr,function(i,item){
+					if(arr.eq(i).text().length){
+						arr.eq(i).parent().parent().find('.looked-message').hide();
+					}
+				});
+			});
+			
+			/**
+			 * @desc 选项卡切换
+			 */
+			$('.tab-header').on('click',function(){
+				$(this).addClass('active').siblings().removeClass('active');
+				var id = $(this).data('id');
+			});
+
 			/**
 			 * @desc 已阅单条留言
 			 */
-			$('#content-message .looked-message').on('click',function(e){
+			$('#content-message').on('click','.looked-message',function(e){
+				var id=$(this).data('id');
 				e.preventDefault();
 				$('#all_operate').empty();
 				JafeneyComfirm("温馨提示","您确定要已经阅读过该留言了吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
-			        	var flag=1;
-			          	
-						if(flag){
-							JafeneyAlert("温馨提示","该留言已被成功阅读！");		
-						}else{
-							JafeneyAlert("温馨提示","操作失败请重试！");		
-						}
-						$('#JafeneyAlert').modal();
+			        	$.getJSON(APIURL+'messages_look.act.php?id='+id,function(res){
+			        		if(res.res){
+			        			JafeneyAlert("温馨提示","该留言已被成功阅读！");
+			        			setTimeout(function(){
+									location.href=location.href;
+								},500);
+			        		}else{
+			        			JafeneyAlert("温馨提示","操作失败请重试！");	
+			        		}
+			        		$('#JafeneyAlert').modal();
+			        	});
 			        },
 			        onCancel: function() {
 			          //什么都不做
@@ -825,19 +852,26 @@
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
-			        	var checkBoxs=$('#content-message input[type=checkbox]');
+			        	var checkBoxs=$('.check-single.checked');
 						var selectItems=[];
 						$.each(checkBoxs,function(idx,item){
-							if(checkBoxs.eq(idx).prop('checked')){
-								selectItems.push(checkBoxs.eq(idx).data('id'));
-							}
+							selectItems.push(checkBoxs.eq(idx).data('id'));
 						});
 						if(selectItems.length===0){
-							JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");	
+							JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
 						}else{
-							JafeneyAlert("温馨提示","操作成功！");
+							$.getJSON(APIURL+'messages_look.act.php?id='+selectItems.join(','),function(res){
+								if(res.res){
+									JafeneyAlert("温馨提示","这些留言已被成功阅读！");
+									setTimeout(function(){
+										location.href=location.href;
+									},500);
+								}else{
+									JafeneyAlert("温馨提示","操作失败请重试！");	
+								}
+								$('#JafeneyAlert').modal();
+							});
 						}
-						$('#JafeneyAlert').modal();
 			        },
 			        onCancel: function() {
 			          //什么都不做
@@ -848,21 +882,25 @@
 			/**
 			 * @desc 删除留言
 			 */
-			$('#content-message .delete-message').on('click',function(e){
+			$('#content-message').on('click','.delete-message',function(e){
+				var id=$(this).data('id');
 				e.preventDefault();
 				$('#all_operate').empty();
 				JafeneyComfirm("温馨提示","您确定要删除该留言吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
-			        	var flag=1;
-			          	
-						if(flag){
-							JafeneyAlert("温馨提示","该留言已被成功删除！");		
-						}else{
-							JafeneyAlert("温馨提示","删除失败请重试！");		
-						}
-						$('#JafeneyAlert').modal();
+			        	$.getJSON(APIURL+'messages_delete.act.php?id='+id,function(res){
+			        		if(res.res){
+			        			JafeneyAlert("温馨提示","该留言已被成功删除！");
+			        			setTimeout(function(){
+			        				location.href=location.href;
+			        			},500);
+			        		}else{
+			        			JafeneyAlert("温馨提示","操作失败请重试！");	
+			        		}
+			        		$('#JafeneyAlert').modal();
+			        	});
 			        },
 			        onCancel: function() {
 			          //什么都不做
@@ -880,19 +918,26 @@
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
-			        	var checkBoxs=$('#content-message input[type=checkbox]');
-						var selectItems=[];
-						$.each(checkBoxs,function(idx,item){
-							if(checkBoxs.eq(idx).prop('checked')){
-								selectItems.push(checkBoxs.eq(idx).data('id'));
-							}
-						});
-						if(selectItems.length===0){
-							JafeneyAlert("温馨提示","请先勾选要删除的内容！");	
-						}else{
-							JafeneyAlert("温馨提示","删除成功！");
-						}
-						$('#JafeneyAlert').modal();
+        	        	var checkBoxs=$('.check-single.checked');
+        				var selectItems=[];
+        				$.each(checkBoxs,function(idx,item){
+        					selectItems.push(checkBoxs.eq(idx).data('id'));
+        				});
+        				if(selectItems.length===0){
+        					JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
+        				}else{
+        					$.getJSON(APIURL+'messages_delete.act.php?id='+selectItems.join(','),function(res){
+        						if(res.res){
+        							JafeneyAlert("温馨提示","这些留言已被成功删除！");
+        							setTimeout(function(){
+        								location.href=location.href;
+        							},500);
+        						}else{
+        							JafeneyAlert("温馨提示","操作失败请重试！");	
+        						}
+        						$('#JafeneyAlert').modal();
+        					});
+        				}
 			        },
 			        onCancel: function() {
 			          //什么都不做
@@ -1009,6 +1054,7 @@
 				});
 			});
 		})();
+
 	});
 
 })(jQuery);

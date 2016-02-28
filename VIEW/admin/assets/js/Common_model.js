@@ -1,5 +1,5 @@
 /**
- * @desc 根据不同业务进行的第一次封装
+ * @desc 对不同业务的modal进行了封装
  */
 
 /**
@@ -203,105 +203,6 @@ function JafeneyPromptAddTheme(your_title){
 	$('#all_operate').append($JafeneyPrompt);
 }
 
-/**
- * @desc 根据通用的功能进行第二次封装
- */
-
-function AddOne($Title,$Prompt,$Ajax){
-	if($('.CheckAllButton').prop('checked')){
-		$('.CheckAllButton').trigger('click');
-	}
-	$('#all_operate').empty();
-	$Prompt('添加新'+$Title);
-	$('#JafeneyPrompt').modal({
-		relatedTarget: this,
-        onConfirm: function(e) {
-        	if($Ajax){
-        		$Ajax(e);
-        	}else{
-				JafeneyAlert("温馨提示","操作失败！请重试");	
-			}
-			$('#JafeneyAlert').modal();
-        },
-        onCancel: function(e) {
-          //什么都不做
-        }
-	});
-}
-
-function UpdateOne($Title,$Prompt,$Ajax){
-	if($('.CheckAllButton').prop('checked')){
-		$('.CheckAllButton').trigger('click');
-	}
-	$('#all_operate').empty();
-	$Prompt('编辑'+$Title);
-	$('#JafeneyPrompt').modal({
-		relatedTarget: this,
-        onConfirm: function(e) {
-        	if($Ajax){
-        		$Ajax(e);
-        	}else{
-				JafeneyAlert("温馨提示","操作失败！请重试");	
-			}
-			$('#JafeneyAlert').modal();
-        },
-        onCancel: function(e) {
-          //什么都不做
-        }
-	});
-}
-
-function DeleteOne($Title,$Ajax){
-	if($('.CheckAllButton').prop('checked')){
-		$('.CheckAllButton').trigger('click');
-	}
-	$('#all_operate').empty();
-	JafeneyComfirm("温馨提示","您确定要删除该"+$Title+"吗？");	
-	$('#JafeneyComfirm').modal({
-		relatedTarget: this,
-        onConfirm: function(options) {
-			if($Ajax){
-				$Ajax();
-			}else{
-				JafeneyAlert("温馨提示","删除失败请重试！");	
-			}
-			$('#JafeneyAlert').modal();
-        },
-        onCancel: function() {
-          //什么都不做
-        }
-	});
-}
-
-function DeleteSome($Title,$Container,$Ajax){
-	$('#all_operate').empty();
-	JafeneyComfirm("温馨提示","您确定要删除这些"+$Title+"吗？");	
-	$('#JafeneyComfirm').modal({
-		relatedTarget: this,
-	    onConfirm: function(options) {
-	    	var checkBoxs=$($Container+' input[type=checkbox]');
-			var selectItems=[];
-			$.each(checkBoxs,function(idx,item){
-				if(checkBoxs.eq(idx).prop('checked')){
-					selectItems.push(checkBoxs.eq(idx).data('id'));
-				}
-			});
-			if(selectItems.length===0){
-				JafeneyAlert("温馨提示","请先勾选要删除的内容！");	
-			}else{
-				if($Ajax){
-					$Ajax();
-				}else{
-					JafeneyAlert("温馨提示","操作失败，请重试！")
-				}
-			}
-			$('#JafeneyAlert').modal();
-	    },
-	    onCancel: function() {
-	      //什么都不做
-	    }
-	});
-}
 
 
 
