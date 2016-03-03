@@ -138,12 +138,12 @@
 									<div class="slides_container">
 
 										<div class="slide">
-											<a href="#"><img src="images/accom-slide1.jpg" alt="" /></a>
+											<a href="#"><img class="product-img" src="images/accom-slide1.jpg" alt="" /></a>
 											<div class="caption product-name">标准单人房</div>
 										</div>
 
 										<div class="slide">
-											<a href="#"><img src="images/accom-slide2.jpg" alt="" /></a>
+											<a href="#"><img class="product-img" src="images/accom-slide2.jpg" alt="" /></a>
 											<div class="caption product-name">标准单人房</div>
 										</div>
 
@@ -317,6 +317,7 @@
 			/*从query参数里获取productId*/
 			var _productId=location.search.split('=')[1];
 
+			$('.product-img').attr('src',source[_productId-1].img);
 			$('#input-product-name').val(source[_productId-1].name);
 			$('.product-name').html(source[_productId-1].name);
 			$('#product-info').html(source[_productId-1].info);
