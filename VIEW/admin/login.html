@@ -102,9 +102,8 @@
 
 				/*Ajax校验登录信息*/
 				$.getJSON('http://www.hms.com/HMS/API/action/admin/login.act.php?a_name='+_username+'&a_pwd='+_password,function(res){
-					console.log(res);
 					if(res){
-						if(_username==="seyaney" && _password==="123456"){
+						if(res.res){
 							window.localStorage.login_user="seyaney";
 							location.href="./admin-index.html";
 						}else{
