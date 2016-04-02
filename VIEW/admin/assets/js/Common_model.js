@@ -157,24 +157,31 @@ function JafeneyListGallery(your_title,your_content){
  * @desc 定制 添加订单的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
  */
-function JafeneyPromptAddOrder(your_title){
+function JafeneyPromptAddOrder(your_title,callback){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
 	var $JModelBody=$("<div class='am-modal-bd'></div>");
-	var JModelInput1="<label class='am-fl am-margin-left'>客户名称</label> <input type='text' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var JModelInput1="<label class='am-fl am-margin-left'>客户名</label> <input type='text' id='order-input1' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var JModelInput2="<label class='am-fl am-margin-left'>套餐</label><select id='order-input2' class='am-modal-prompt-input am-fr'><option data-id='1'>单人标准房</option><option data-id='2'>双人标准房</option><option data-id='3'>单人豪华房</option><option data-id='4'>双人豪华房</option><option data-id='5'>单人钟点房</option><option data-id='6'>双人钟点房</option></select><div class='am-cf am-margin-bottom-sm'></div>";
+	var JModelInput3="<label class='am-fl am-margin-left'>入住时间</label> <input type='date' id='order-input3' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
+	var JModelInput4="<label class='am-fl am-margin-left'>离开时间</label> <input type='date' id='order-input4' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
 	
-	var JModelInput2="<label class='am-fl am-margin-left'>应付金额</label> <input type='text' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";	
-	var JModelInput3="<label class='am-fl am-margin-left'>是否支付</label><select class='am-modal-prompt-input am-fr'><option>未支付</option><option>已支付</option></select><div class='am-cf am-margin-bottom-sm'></div>";	
-	var JModelInput4="<label class='am-fl am-margin-left'>排序权重</label> <input type='text' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
+	var JModelInput5="<label class='am-fl am-margin-left'>应付金额</label> <input type='text' id='order-input5' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";	
+	var JModelInput6="<label class='am-fl am-margin-left'>是否支付</label><select id='order-input6' class='am-modal-prompt-input am-fr'><option data-id='0'>未支付</option><option data-id='1'>已支付</option></select><div class='am-cf am-margin-bottom-sm'></div>";	
+	var JModelInput7="<label class='am-fl am-margin-left'>排序权重</label> <input id='order-input7' type='text' value='1' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
 	var $JModelFooter="<div class='am-modal-footer'><span class='am-modal-btn' data-am-modal-cancel>取消</span><span class='am-modal-btn' data-am-modal-confirm>确定</span></div>";
 
-	$JModelBody.append(JModelInput1+JModelInput2+JModelInput3+JModelInput4);
+	$JModelBody.append(JModelInput1+JModelInput2+JModelInput3+JModelInput4+JModelInput5+JModelInput6+JModelInput7);
 	$JDialog.append($JModelHead);
 	$JDialog.append($JModelBody);
 	$JDialog.append($JModelFooter);
 	$JafeneyPrompt.append($JDialog);
 	$('#all_operate').append($JafeneyPrompt);
+
+	if (callback) {
+		callback();
+	}
 }
 
 /**

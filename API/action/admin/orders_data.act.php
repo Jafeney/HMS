@@ -3,7 +3,8 @@
 	/*设置文档类型和编码方式*/
 	header('Content-Type:text/json;charset=utf-8');
 	/*引入公共方法库*/
-	require 'E:/wamp/www/HMS/API/util/common.php';
+	// require '/Library/WebServer/Documents/HMS/API/util/common.php';
+    require 'E:/wamp/www/HMS/API/util/common.php'; 
 
 	/**
 	 * @desc 分页获取订单列表内容
@@ -31,8 +32,11 @@
     	$res[$i]['p_name']=$_mysqli->db_query("SELECT p_name FROM product WHERE p_id=$pId")['p_name'];
     }
     
-     if(sizeof($res)){
-        echo formatJson($res);
+    if(sizeof($res)){
+        $data = formatJson($res);
+        $pageTotal = intval($rows_total/$page_rows); // 支持分页
+
+        echo '{"data":'.$data.',"pages":'.$pageTotal.'}';
     }
 
 ?>

@@ -14,13 +14,19 @@
 
 	/*把数组集合转换为json数组*/
 	function FormatJson($arr){
-		$jsonArray='[';
-		foreach($arr as $value){
-			$jsonArray.=arrayToJson($value).',';
+
+		if ($arr) {
+			$jsonArray='[';
+			foreach($arr as $value){
+				$jsonArray.=arrayToJson($value).',';
+			}
+			$jsonArray=substr($jsonArray,0,strlen($jsonArray)-1);
+			$jsonArray.=']';
+			return $jsonArray;
+		} else {
+			return '[]';
 		}
-		$jsonArray=substr($jsonArray,0,strlen($jsonArray)-1);
-		$jsonArray.=']';
-		return $jsonArray;
+		
 	}
 
 	/**

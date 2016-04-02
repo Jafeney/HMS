@@ -598,25 +598,139 @@
 		 * @page admin-order
 		 * @desc 订单管理模块脚本
 		 */
-		var OrderManageModule=(function(){
+		var OrderManageModule=(function() {
+
 			/**
-			 * @desc 添加客户的模态窗口
+			 * 本文转换
+			 */
+			var transPaytxt = function(isPay) {
+				if (isPay|0) {
+					return "已支付";
+				}else {
+					return "未支付";
+				}
+			};
+
+			/**
+			 * @desc 渲染订单列表
+			 */
+			var renderOrderList = function(data) {
+				var i=0,
+					len=data.length,
+					_htmlArr=[];
+				for(i=0;i<len;i++){
+					_htmlArr[i]=[
+					'<tr>',
+						'<td>',
+							'<input type="text" class="checkbox check-single" data-id='+data[i].o_id+' />',
+						'</td>',
+						'<td>'+data[i].o_id+'</td>',
+						'<td>'+data[i].c_name+'</td>',
+						'<td>'+data[i].p_name+'</td>',
+						'<td class="am-text-center">'+data[i].o_upTime+'</td>',
+						'<td class="am-text-center">'+data[i].o_inDate+' </td>',
+						'<td class="am-text-center">'+data[i].o_outDate+' </td>',
+						'<td class="am-hide-sm-only">¥'+data[i].o_total+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+transPaytxt(data[i].o_isPay)+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+data[i].o_operateTime+'</td>',
+						'<td class="am-hide-sm-only am-text-center">'+data[i].o_rank+'</td>',
+						'<td>',
+							'<div class="am-btn-toolbar">',
+								'<div class="am-btn-group am-btn-group-xs">',
+									'<button data-cid="'+data[i].c_id+'" data-cname="'+data[i].c_name+'" data-pname="'+data[i].p_name+'" data-uptime="'+data[i].o_upTime+'" data-indate="'+data[i].o_inDate+'" data-outdate="'+data[i].o_outDate+'" data-total="'+data[i].o_total+'" data-id="'+data[i].o_id+'" data-ispay="'+transPaytxt(data[i].o_isPay)+'" data-opeatetime="'+data[i].o_operateTime+'" data-rank="'+data[i].o_rank+'" class="am-btn am-btn-default am-btn-xs am-text-secondary edit-order"><span class="am-icon-pencil-square-o"></span> 编辑</button>',
+									'<button data-id='+data[i].o_id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-order" ><span class="am-icon-trash-o "></span> 删除</button>',
+								'</div>',
+							'</div>',
+						'</td>',
+					'</tr>'
+					].join('');
+				}
+				$('#order-list').html(_htmlArr.join(''));
+			};
+
+			/**
+			 * @desc 加载订单列表
+			 */
+			LoadData('orders',0,function(res){
+				
+				renderOrderList(res.data);
+
+				/*加载分页*/
+				loadPage(res.pages);
+			});
+
+			/**
+			 * @desc 分页加载
+			 */
+			$(document).on('click', '#pagination-orders .page-item', function() {
+				if (!$(this).hasClass('am-active')) {
+					$(this).addClass('am-active').siblings().removeClass('am-active');
+					var _page = $(this).data('page');
+					LoadData('orders',_page,function(res){
+						renderOrderList(res.data);
+					});
+				}
+			});
+
+			/**
+			 * @desc 上一页
+			 */
+			$(document).on('click', '#go_prev', function() {
+				var _selected = $('#pagination-orders .am-active');
+				var _page = _selected.data('page');
+
+				if (_page > 0) {
+					_page --;
+					LoadData('orders',_page,function(res){
+						renderOrderList(res.data);
+					});
+					_selected.removeClass('am-active').prev().addClass('am-active');
+				}
+			});
+
+			/**
+			 * @desc 下一页
+			 */
+			$(document).on('click', '#go_next', function() {
+				var _selected = $('#pagination-orders .am-active');
+				var _page = _selected.data('page');
+				var _mostPage = $('#pagination-orders .page-item').eq($('#pagination-orders .page-item').length-1).data('page');
+
+				if (_page < _mostPage) {
+					_page ++;
+					LoadData('orders',_page,function(res){
+						renderOrderList(res.data);
+					});
+					_selected.removeClass('am-active').next().addClass('am-active');
+				}
+			});
+
+			/**
+			 * @desc 添加订单的模态窗口
 			 */
 			$('#content-order').on('click','#order-add',function(e){
 				e.preventDefault();
 
-				AddOne('订单',JafeneyPromptAddUser,function(){
+				AddOne('订单',JafeneyPromptAddOrder,function(){
+					var _time = new Date();
+					var formatDate = function(num) {
+						if(num<10) {
+							return '0'+num;
+						}else {
+							return num;
+						}
+					};
 					var source={
-						id: 5,
-						cName: 'seyaney',
-						pName: '单人标准房',
-						upTime: '2015-9-15 12:25:30',
-						inDate: '2015-9-15',
-						outDate: '18367854560',
-						total: '120.00',
-						isPay: '否',
-						payDate: '2015-9-15 12:25:30',
-						rank: 1
+						id: Math.floor(Math.random()*100),
+						cName: $('#order-input1').val(),
+						pName: $('#order-input2').val(),
+						upTime: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
+						inDate: $('#order-input3').val(),
+						outDate: $('#order-input4').val(),
+						total: $('#order-input5').val(),
+						isPay: $('#order-input6').val(),
+						payDate: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
+						rank: $('#order-input7').val()
 					};
 					var newTr=[
 						'<tr>',
@@ -650,23 +764,45 @@
 			});
 			
 			/**
-			 * @desc 编辑客户的模态窗口
+			 * @desc 编辑订单的模态窗口
 			 */
 			$('#content-order').on('click','.edit-order',function(e){
 				e.preventDefault();
 				var self= $(this);
-				UpdateOne('订单',JafeneyPromptAddUser,function(){
+
+				/*注入*/
+				var insertCallback = function() {
+					$('#order-input1').val(self.data('cname'));
+					$('#order-input1').data('cid', self.data('cid'));
+					$('#order-input2').val(self.data('pname'));
+					$('#order-input3').val(self.data('indate'));
+					$('#order-input4').val(self.data('outdate'));
+					$('#order-input5').val(self.data('total'));
+					$('#order-input6').val(self.data('ispay'));
+					$('#order-input7').val(self.data('rank'));
+				};
+				
+				/*更新*/
+				UpdateOne('订单',JafeneyPromptAddOrder,function(){
+					var _time = new Date();
+					var formatDate = function(num) {
+						if(num<10) {
+							return '0'+num;
+						}else {
+							return num;
+						}
+					};
 					var source={
-						id: 5,
-						cName: '盛燕妮',
-						pName: '单人标准房',
-						upTime: '2015-9-15 12:25:30',
-						inDate: '2015-9-15',
-						outDate: '18367854560',
-						total: '120.00',
-						isPay: '否',
-						payDate: '2015-9-15 12:25:30',
-						rank: 1
+						id: self.data('id'),
+						cName: $('#order-input1').val(),
+						pName: $('#order-input2').val(),
+						upTime: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
+						inDate: $('#order-input3').val(),
+						outDate: $('#order-input4').val(),
+						total: $('#order-input5').val(),
+						isPay: $('#order-input6').val(),
+						payDate: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
+						rank: $('#order-input7').val()
 					};
 					var updateTr=[
 						'<td>',
@@ -692,31 +828,84 @@
 						'</td>'
 					].join('');
 
-					self.parent().parent().parent().parent().html(updateTr);
-					testAllChecked();
-				});
+					/*更新数据库*/
+					$.ajax({
+						type: 'get',
+						url: APIURL+'orders_edit.act.php',
+						dataType: 'json',
+						data: {
+							oId: source.id,
+							cId: $('#order-input1').data('cid'),
+							pId: $('#order-input2').find("option:selected").data('id'),
+							inDate: source.inDate,
+							outDate: source.outDate,
+							days: DateDiff(source.outDate, source.inDate),
+							total: source.total,
+							isPay: $('#order-input6').find("option:selected").data('id'),
+							rank: source.rank
+						},
+						success: function(res) {
+							if(res.res){
+								self.parent().parent().parent().parent().html(updateTr);
+								testAllChecked();
+								JafeneyAlert("温馨提示","更新成功！");
+							}else{
+								JafeneyAlert("温馨提示","操作失败请重试！");	
+							}
+							$('#JafeneyAlert').modal();
+						}
+					});
+					
+				},insertCallback);
 			});
 
 			/**
-			 * @desc 单个客户删除的模态窗口
+			 * @desc 单个订单删除的模态窗口
 			 */
 			$('#content-order').on('click','.delete-order',function(e){
 				e.preventDefault();
 				var self=$(this);
+				var _id = self.data('id');
 				DeleteOne('订单',function(){
-					self.parent().parent().parent().parent().remove();
-					testAllChecked();
+					if(_id) {
+						$.getJSON(APIURL+'orders_delete.act.php?id='+_id,function(res){
+							if(res.res){
+								self.parent().parent().parent().parent().remove();
+								testAllChecked();
+								JafeneyAlert("温馨提示","该订单已被成功删除！");
+							}else{
+								JafeneyAlert("温馨提示","操作失败请重试！");	
+							}
+							$('#JafeneyAlert').modal();
+						});
+					}
 				});
 			});
-
 			/**
-			 * @desc 批量删除客户的模态窗口
+			 * @desc 批量删除订单的模态窗口
 			 */
 			$('#content-order .delete-some').on('click',function(e){
 				e.preventDefault();
-				DeleteSome('新闻',function(){
-					$('.check-single.checked').parent().parent().remove();
-					testAllChecked();
+				DeleteSome('订单',function(){
+					var selectItems=[];
+					var checkBoxs=$('.check-single.checked');
+					$.each(checkBoxs,function(idx,item){
+						selectItems.push(checkBoxs.eq(idx).data('id'));
+					});
+					if(selectItems.length===0){
+						JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
+					}else{
+						$.getJSON(APIURL+'messages_delete.act.php?id='+selectItems.join(','),function(res){
+							if(res.res){
+								checkBoxs.parent().parent().remove();
+								testAllChecked();
+								JafeneyAlert("温馨提示","这些订单已被成功删除！");
+							}else{
+								JafeneyAlert("温馨提示","操作失败请重试！");	
+							}
+							$('#JafeneyAlert').modal();
+						});
+					}
 				});
 			});
 		})();
@@ -767,13 +956,9 @@
 		var MessageMangeModule=(function(){
 
 			/**
-			 * @desc 加载初始化数据
+			 * @desc 渲染留言列表
 			 */
-			LoadData('messages',0,function(res){
-				$('#count-all').text(res.all);
-				$('#count-needRead').text(res.needRead);
-				$('#count-hasRead').text(res.hasRead);
-				var data=res.res;
+			var renderMessageList = function(data) {
 				var source=[];
 				for(var i=0,len=data.length;i<len;i++){
 					source[i] =[
@@ -796,6 +981,16 @@
 					].join('');
 				}
 				$('#message-list').html(source.join(''));
+			};
+
+			/**
+			 * @desc 加载初始化数据
+			 */
+			LoadData('messages',0,function(res){
+				$('#count-all').text(res.all.length);
+				$('#count-needRead').text(res.needRead.length);
+				$('#count-hasRead').text(res.hasRead.length);
+				renderMessageList(res.all);
 
 				// 做一次判断，如果留言已阅 则无法继续审阅，只能删除
 				var arr=$('.operate-time');
@@ -804,14 +999,27 @@
 						arr.eq(i).parent().parent().find('.looked-message').hide();
 					}
 				});
-			});
-			
-			/**
-			 * @desc 选项卡切换
-			 */
-			$('.tab-header').on('click',function(){
-				$(this).addClass('active').siblings().removeClass('active');
-				var id = $(this).data('id');
+
+				/**
+				 * @desc 选项卡切换
+				 */
+				$('.tab-header').on('click',function(){
+					$(this).addClass('active').siblings().removeClass('active');
+					var id = $(this).data('id');
+					switch(id) {
+						case 1:
+							renderMessageList(res.all);
+							break;
+						case 2:
+							renderMessageList(res.needRead);
+							break;
+						case 3:
+							renderMessageList(res.hasRead);
+							break;
+						default:
+							break;
+					}
+				});
 			});
 
 			/**

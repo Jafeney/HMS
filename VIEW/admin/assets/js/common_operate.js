@@ -62,9 +62,10 @@ function AddOne($Title,$Prompt,$Callback){
  * @param {[type]} $Prompt   [description]
  * @param {[type]} $Callback [description]
  */
-function UpdateOne($Title,$Prompt,$Callback){
+function UpdateOne($Title,$Prompt,$Callback,$InsertCallback){
 	$('#all_operate').empty();
-	$Prompt('编辑'+$Title);
+
+	$Prompt('编辑'+$Title,$InsertCallback);
 	$('#JafeneyPrompt').modal({
 		relatedTarget: this,
         onConfirm: function(e) {
@@ -179,3 +180,35 @@ function testAllChecked(){
 		$('#checkAll').removeClass('checked');
 	}
 }
+
+
+/**
+ * @desc 分页
+ */
+function loadPage(pages) {
+
+	var pagePrev = '<li id="go_prev"><a href="javascript:void(0)">«</a></li>';
+	var pageItem='';
+	var pageNext = '<li id="go_next"><a href="javascript:void(0)">»</a></li>';
+
+	for(var i=0;i<=pages;i++){
+		pageItem+= '<li class="page-item" data-page='+i+'><a href="javascript:void(0)">'+(i+1)+'</a></li>';
+	}
+
+	$('#pagination-orders').html(pagePrev+pageItem+pageNext);
+
+	// 默认选择第一个 
+	$('#pagination-orders li').eq(1).addClass('am-active');
+}
+
+//计算天数差的函数，通用  
+function  DateDiff(sDate1,  sDate2){    //sDate1和sDate2是2006-12-18格式  
+   var  aDate,  oDate1,  oDate2,  iDays; 
+   aDate  =  sDate1.split("-");  
+   oDate1  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]); //转换为12-18-2006格式  
+   aDate  =  sDate2.split("-");  
+   oDate2  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]);  
+   iDays  =  parseInt(Math.abs(oDate1  -  oDate2)  /  1000  /  60  /  60  /24); //把相差的毫秒数转换为天数  
+   return  iDays; 
+}   
+
