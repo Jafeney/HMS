@@ -466,7 +466,7 @@
 						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res[i].c_rank+'</td>',
 						'<td><div class="am-btn-toolbar">',
 							'<div class="am-btn-group am-btn-group-xs">',
-								'<button data-id='+res[i].c_id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
+								'<button data-id="'+res[i].c_id+'" data-name="'+res[i].c_name+'" data-card="'+res[i].c_IDcard+'" data-sex="'+res[i].c_sex+'" data-phone="'+res[i].c_phone+'" data-address="'+res[i].c_address+'" data-rank="'+res[i].c_rank+'" data class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
 									'<span class="am-icon-pencil-square-o"></span> 编辑',
 								'</button>',
 								'<button data-id='+res[i].c_id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
@@ -478,6 +478,7 @@
 					].join('');
 				}
 				$('#user-list').html(_htmlArr.join(''));
+
 			});
 
 			/**
@@ -488,41 +489,54 @@
 
 				AddOne('客户',JafeneyPromptAddUser,function(){
 					var source={
-						id: 5,
-						name: '盛燕妮',
-						IDcard: '3330683199311137014',
-						sex: '女',
-						phone: '18367854560',
-						address: '温州医科大学',
-						upTime: '2016-02-29 12:23:00',
-						rank: 1
+						name: $('#user-input1').val(),
+						card: $('#user-input2').val(),
+						sex: $('#user-input3').val(),
+						phone: $('#user-input4').val(),
+						address: $('#user-input5').val(),
+						rank: $('#user-input6').val()
 					};
-					var newTr=[
-						'<tr>',
-							'<td><input type="text" class="checkbox check-single" data-id='+source.id+' /></td>',
-							'<td>'+source.id+'</td>',
-							'<td>'+source.name+'</td>',
-							'<td>'+txtLengthFormat(source.IDcard,10)+'</td>',
-							'<td class="am-hide-sm-only am-text-center">'+source.sex+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.phone+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+txtLengthFormat(source.address,5)+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.upTime+'</td>',
-							'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.rank+'</td>',
-							'<td><div class="am-btn-toolbar">',
-								'<div class="am-btn-group am-btn-group-xs">',
-									'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
-										'<span class="am-icon-pencil-square-o"></span> 编辑',
-									'</button>',
-									'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
-										'<span class="am-icon-trash-o "></span> 删除</button>',
-									'</div>',
-								'</div>',
-							'</td>',
-						'</tr>'
-					].join('');
 
-					$('#user-list').append(newTr);
-					testAllChecked();
+					$.ajax({
+						type: 'get',
+						url: APIURL + 'users_add.act.php',
+						dataType: 'json',
+						data: source,
+						success: function(res) {
+							if (res.cid) {
+								var newTr=[
+									'<tr>',
+										'<td><input type="text" class="checkbox check-single" data-id='+res.cid+' /></td>',
+										'<td>'+res.cid+'</td>',
+										'<td>'+source.name+'</td>',
+										'<td>'+txtLengthFormat(source.card,10)+'</td>',
+										'<td class="am-hide-sm-only am-text-center">'+source.sex+'</td>',
+										'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.phone+'</td>',
+										'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+txtLengthFormat(source.address,5)+'</td>',
+										'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res.time+'</td>',
+										'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.rank+'</td>',
+										'<td><div class="am-btn-toolbar">',
+											'<div class="am-btn-group am-btn-group-xs">',
+												'<button data-id="'+res.c_id+'" data-name="'+source.name+'" data-card="'+source.card+'" data-sex="'+source.sex+'" data-phone="'+source.phone+'" data-address="'+source.address+'" data-rank="'+source.rank+'" data class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
+													'<span class="am-icon-pencil-square-o"></span> 编辑',
+												'</button>',
+												'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
+													'<span class="am-icon-trash-o "></span> 删除</button>',
+												'</div>',
+											'</div>',
+										'</td>',
+									'</tr>'
+								].join('');
+								$('#user-list').append(newTr);
+								testAllChecked();
+								JafeneyAlert("温馨提示","添加成功！");
+							}else{
+								JafeneyAlert("温馨提示","操作失败请重试！");	
+							}
+							$('#JafeneyAlert').modal();
+						}
+					});
+					
 				});
 			});
 			
@@ -532,42 +546,68 @@
 			$('#content-users').on('click','.edit-user',function(e){
 				e.preventDefault();
 				var self= $(this);
+
+				/*注入*/
+				var insertCallback = function() {
+					$('#user-input1').val(self.data('name'));
+					$('#user-input1').data('id',self.data('id'));
+					$('#user-input2').val(self.data('card'));
+					$('#user-input3').val(self.data('sex'));
+					$('#user-input4').val(self.data('phone'));
+					$('#user-input5').val(self.data('address'));
+					$('#user-input6').val(self.data('rank'));
+				};
+
 				UpdateOne('客户',JafeneyPromptAddUser,function(){
 					var source={
-						id: 5,
-						name: 'seyaney',
-						IDcard: '3330683199311137014',
-						sex: '女',
-						phone: '18367854560',
-						address: '温州医科大学',
-						upTime: '2016-02-29 12:23:00',
-						rank: 1
+						id: self.data('id'),
+						name: $('#user-input1').val(),
+						card: $('#user-input2').val(),
+						sex: $('#user-input3').val(),
+						phone: $('#user-input4').val(),
+						address: $('#user-input5').val(),
+						rank: $('#user-input6').val()
 					};
-					var updateTr=[
-						'<td><input type="text" class="checkbox check-single" data-id='+source.id+' /></td>',
-						'<td>'+source.id+'</td>',
-						'<td>'+source.name+'</td>',
-						'<td>'+txtLengthFormat(source.IDcard,10)+'</td>',
-						'<td class="am-hide-sm-only am-text-center">'+source.sex+'</td>',
-						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.phone+'</td>',
-						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+txtLengthFormat(source.address,5)+'</td>',
-						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.upTime+'</td>',
-						'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.rank+'</td>',
-						'<td><div class="am-btn-toolbar">',
-							'<div class="am-btn-group am-btn-group-xs">',
-								'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
-									'<span class="am-icon-pencil-square-o"></span> 编辑',
-								'</button>',
-								'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
-									'<span class="am-icon-trash-o "></span> 删除</button>',
-								'</div>',
-							'</div>',
-						'</td>',
-					].join('');
 
-					self.parent().parent().parent().parent().html(updateTr);
-					testAllChecked();
-				});
+					$.ajax({
+						type: 'get',
+						url: APIURL + 'users_edit.act.php',
+						dataType: 'json',
+						data: source,
+						success: function(res) {
+							if (res.cid) {
+								var updateTr=[
+									'<td><input type="text" class="checkbox check-single" data-id='+res.cid+' /></td>',
+									'<td>'+res.cid+'</td>',
+									'<td>'+source.name+'</td>',
+									'<td>'+txtLengthFormat(source.card,10)+'</td>',
+									'<td class="am-hide-sm-only am-text-center">'+source.sex+'</td>',
+									'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.phone+'</td>',
+									'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+txtLengthFormat(source.address,5)+'</td>',
+									'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+res.time+'</td>',
+									'<td class="am-hide-sm-only am-hide-sm-only am-text-center">'+source.rank+'</td>',
+									'<td><div class="am-btn-toolbar">',
+										'<div class="am-btn-group am-btn-group-xs">',
+											'<button data-id="'+res.c_id+'" data-name="'+source.name+'" data-card="'+source.card+'" data-sex="'+source.sex+'" data-phone="'+source.phone+'" data-address="'+source.address+'" data-rank="'+source.rank+'" class="am-btn am-btn-default am-btn-xs am-text-secondary edit-user">',
+												'<span class="am-icon-pencil-square-o"></span> 编辑',
+											'</button>',
+											'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-user" >',
+												'<span class="am-icon-trash-o "></span> 删除</button>',
+											'</div>',
+										'</div>',
+									'</td>',
+								].join('');
+								self.parent().parent().parent().parent().html(updateTr);
+								testAllChecked();
+								JafeneyAlert("温馨提示","更新成功！");
+							}else{
+								JafeneyAlert("温馨提示","操作失败请重试！");	
+							}
+							$('#JafeneyAlert').modal();
+						}
+					});
+
+				},insertCallback);
 			});
 
 			/**
@@ -576,9 +616,20 @@
 			$('#content-users').on('click','.delete-user',function(e){
 				e.preventDefault();
 				var self=$(this);
-				DeleteOne('客户',function(){
-					self.parent().parent().parent().parent().remove();
-					testAllChecked();
+				var _id = self.data('id');
+				DeleteOne('用户',function(){
+					if(_id) {
+						$.getJSON(APIURL+'users_delete.act.php?id='+_id,function(res){
+							if(res.res){
+								self.parent().parent().parent().parent().remove();
+								testAllChecked();
+								JafeneyAlert("温馨提示","该用户已被成功删除！");
+							}else{
+								JafeneyAlert("温馨提示","操作失败请重试！");	
+							}
+							$('#JafeneyAlert').modal();
+						});
+					}
 				});
 			});
 
@@ -588,8 +639,25 @@
 			$('#content-users .delete-some').on('click',function(e){
 				e.preventDefault();
 				DeleteSome('客户',function(){
-					$('.check-single.checked').parent().parent().remove();
-					testAllChecked();
+					var selectItems=[];
+					var checkBoxs=$('.check-single.checked');
+					$.each(checkBoxs,function(idx,item){
+						selectItems.push(checkBoxs.eq(idx).data('id'));
+					});
+					if(selectItems.length===0){
+						JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
+					}else{
+						$.getJSON(APIURL+'users_delete.act.php?id='+selectItems.join(','),function(res){
+							if(res.res){
+								checkBoxs.parent().parent().remove();
+								testAllChecked();
+								JafeneyAlert("温馨提示","这些客户已被成功删除！");
+							}else{
+								JafeneyAlert("温馨提示","操作失败请重试！");	
+							}
+							$('#JafeneyAlert').modal();
+						});
+					}
 				});
 			});
 		})();
@@ -706,62 +774,62 @@
 			});
 
 			/**
-			 * @desc 添加订单的模态窗口
+			 * @desc 添加订单的模态窗口（暂时只支持由网站前台直接下单）
 			 */
-			$('#content-order').on('click','#order-add',function(e){
-				e.preventDefault();
+			// $('#content-order').on('click','#order-add',function(e){
+			// 	e.preventDefault();
 
-				AddOne('订单',JafeneyPromptAddOrder,function(){
-					var _time = new Date();
-					var formatDate = function(num) {
-						if(num<10) {
-							return '0'+num;
-						}else {
-							return num;
-						}
-					};
-					var source={
-						id: Math.floor(Math.random()*100),
-						cName: $('#order-input1').val(),
-						pName: $('#order-input2').val(),
-						upTime: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
-						inDate: $('#order-input3').val(),
-						outDate: $('#order-input4').val(),
-						total: $('#order-input5').val(),
-						isPay: $('#order-input6').val(),
-						payDate: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
-						rank: $('#order-input7').val()
-					};
-					var newTr=[
-						'<tr>',
-							'<td>',
-								'<input type="text" class="checkbox check-single" data-id='+source.id+' />',
-							'</td>',
-							'<td>'+source.id+'</td>',
-							'<td>'+source.cName+'</td>',
-							'<td>'+source.pName+'</td>',
-							'<td class="am-text-center">'+source.upTime+'</td>',
-							'<td class="am-text-center">'+source.inDate+'</td>',
-							'<td class="am-text-center">'+source.outDate+'</td>',
-							'<td class="am-hide-sm-only">¥'+source.total+'</td>',
-							'<td class="am-hide-sm-only am-text-center">'+source.isPay+'</td>',
-							'<td class="am-hide-sm-only am-text-center">'+source.payDate+'</td>',
-							'<td class="am-hide-sm-only am-text-center">'+source.rank+'</td>',
-							'<td>',
-								'<div class="am-btn-toolbar">',
-									'<div class="am-btn-group am-btn-group-xs">',
-										'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-order"><span class="am-icon-pencil-square-o"></span> 编辑</button>',
-										'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-order" ><span class="am-icon-trash-o "></span> 删除</button>',
-									'</div>',
-								'</div>',
-							'</td>',
-						'</tr>'
-					].join('');
+			// 	AddOne('订单',JafeneyPromptAddOrder,function(){
+			// 		var _time = new Date();
+			// 		var formatDate = function(num) {
+			// 			if(num<10) {
+			// 				return '0'+num;
+			// 			}else {
+			// 				return num;
+			// 			}
+			// 		};
+			// 		var source={
+			// 			id: Math.floor(Math.random()*100),
+			// 			cName: $('#order-input1').val(),
+			// 			pName: $('#order-input2').val(),
+			// 			upTime: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
+			// 			inDate: $('#order-input3').val(),
+			// 			outDate: $('#order-input4').val(),
+			// 			total: $('#order-input5').val(),
+			// 			isPay: $('#order-input6').val(),
+			// 			payDate: _time.getFullYear() + '-' + formatDate(_time.getMonth() + 1) + '-' + formatDate(_time.getDate()) + ' ' + formatDate(_time.getHours()) + ':' +formatDate(_time.getMinutes())+':'+formatDate(_time.getSeconds()),
+			// 			rank: $('#order-input7').val()
+			// 		};
+			// 		var newTr=[
+			// 			'<tr>',
+			// 				'<td>',
+			// 					'<input type="text" class="checkbox check-single" data-id='+source.id+' />',
+			// 				'</td>',
+			// 				'<td>'+source.id+'</td>',
+			// 				'<td>'+source.cName+'</td>',
+			// 				'<td>'+source.pName+'</td>',
+			// 				'<td class="am-text-center">'+source.upTime+'</td>',
+			// 				'<td class="am-text-center">'+source.inDate+'</td>',
+			// 				'<td class="am-text-center">'+source.outDate+'</td>',
+			// 				'<td class="am-hide-sm-only">¥'+source.total+'</td>',
+			// 				'<td class="am-hide-sm-only am-text-center">'+source.isPay+'</td>',
+			// 				'<td class="am-hide-sm-only am-text-center">'+source.payDate+'</td>',
+			// 				'<td class="am-hide-sm-only am-text-center">'+source.rank+'</td>',
+			// 				'<td>',
+			// 					'<div class="am-btn-toolbar">',
+			// 						'<div class="am-btn-group am-btn-group-xs">',
+			// 							'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-secondary edit-order"><span class="am-icon-pencil-square-o"></span> 编辑</button>',
+			// 							'<button data-id='+source.id+' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-order" ><span class="am-icon-trash-o "></span> 删除</button>',
+			// 						'</div>',
+			// 					'</div>',
+			// 				'</td>',
+			// 			'</tr>'
+			// 		].join('');
 
-					$('#order-list').append(newTr);
-					testAllChecked();
-				});
-			});
+			// 		$('#order-list').append(newTr);
+			// 		testAllChecked();
+			// 	});
+			// });
 			
 			/**
 			 * @desc 编辑订单的模态窗口
@@ -783,7 +851,7 @@
 				};
 				
 				/*更新*/
-				UpdateOne('订单',JafeneyPromptAddOrder,function(){
+				UpdateOne('订单',JafeneyPromptEditOrder,function(){
 					var _time = new Date();
 					var formatDate = function(num) {
 						if(num<10) {

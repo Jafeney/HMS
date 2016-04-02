@@ -62,17 +62,17 @@ function JafeneyPrompt(your_title,your_content){
  * @desc 定制 添加用户的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
  */
-function JafeneyPromptAddUser(your_title){
+function JafeneyPromptAddUser(your_title,callback){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
 	var $JModelBody=$("<div class='am-modal-bd'></div>");
-	var $JModelInput1="<label class='am-fl am-margin-left'>客户姓名</label> <input type='text' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
-	var $JModelInput2="<label class='am-fl am-margin-left'>身份证号</label> <input type='text' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
-	var $JModelInput3="<label class='am-fl am-margin-left'>性别</label> <select class='am-modal-prompt-input am-fr'><option>男</option><<option>女</option></select><div class='am-cf am-margin-bottom-sm'></div>";	
-	var $JModelInput4="<label class='am-fl am-margin-left'>手机号码</label> <input type='text' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
-	var $JModelInput5="<label class='am-fl am-margin-left'>常用地址</label> <input type='text' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
-	var $JModelInput6="<label class='am-fl am-margin-left'>排序权重</label> <input type='text' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var $JModelInput1="<label class='am-fl am-margin-left'>客户姓名</label> <input type='text' id='user-input1' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var $JModelInput2="<label class='am-fl am-margin-left'>身份证号</label> <input type='text'id='user-input2'  class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var $JModelInput3="<label class='am-fl am-margin-left'>性别</label> <select id='user-input3'  class='am-modal-prompt-input am-fr'><option>男</option><<option>女</option></select><div class='am-cf am-margin-bottom-sm'></div>";	
+	var $JModelInput4="<label class='am-fl am-margin-left'>手机号码</label> <input type='text' id='user-input4'  class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var $JModelInput5="<label class='am-fl am-margin-left'>常用地址</label> <input type='text' id='user-input5'  class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var $JModelInput6="<label class='am-fl am-margin-left'>排序权重</label> <input type='text' id='user-input6'  class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
 	var $JModelFooter=$("<div class='am-modal-footer'><span class='am-modal-btn' data-am-modal-cancel>取消</span><span class='am-modal-btn' data-am-modal-confirm>确定</span></div>");
 	$JModelBody.append($JModelInput1+$JModelInput2+$JModelInput3+$JModelInput4+$JModelInput5+$JModelInput6);
 	
@@ -81,6 +81,10 @@ function JafeneyPromptAddUser(your_title){
 	$JDialog.append($JModelFooter);
 	$JafeneyPrompt.append($JDialog);
 	$('#all_operate').append($JafeneyPrompt);
+
+	if (callback) {
+		callback();
+	}
 }
 
 /**
@@ -118,7 +122,7 @@ function JafeneyPromptAddProduct(your_title){
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
 	var $JModelBody=$("<div class='am-modal-bd'></div>");
 	var JModelInput1="<label class='am-fl am-margin-left'>产品名称</label> <input type='text' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
-	var JModelInput2="<label class='am-fl am-margin-left'>产品预览</label> <img class='am-margin' src='http://avatar.csdn.net/F/8/E/1_u011413061.jpg' /><input type='file' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var JModelInput2="<label class='am-fl am-margin-left'>产品预览</label> <img class='am-margin' style='width:300px;height:180px;' src='http://img.eju.cn/img/dr/39/22/52/305030.jpg' /><input type='file' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
 	var JModelInput3="<label class='am-fl am-margin-left'>产品简介</label> <textarea class='am-modal-prompt-input am-fr'></textarea><div class='am-cf am-margin-bottom-sm'></div>";	
 	var JModelInput4="<label class='am-fl am-margin-left'>产品价格</label> <input type='text' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";	
 	var JModelInput5="<label class='am-fl am-margin-left'>排序权重</label> <input type='text' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
@@ -153,6 +157,7 @@ function JafeneyListGallery(your_title,your_content){
 	$('#all_operate').append($JafeneyList);
 }
 
+
 /**
  * @desc 定制 添加订单的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
@@ -163,6 +168,36 @@ function JafeneyPromptAddOrder(your_title,callback){
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
 	var $JModelBody=$("<div class='am-modal-bd'></div>");
 	var JModelInput1="<label class='am-fl am-margin-left'>客户名</label> <input type='text' id='order-input1' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
+	var JModelInput2="<label class='am-fl am-margin-left'>套餐</label><select id='order-input2' class='am-modal-prompt-input am-fr'><option data-id='1'>单人标准房</option><option data-id='2'>双人标准房</option><option data-id='3'>单人豪华房</option><option data-id='4'>双人豪华房</option><option data-id='5'>单人钟点房</option><option data-id='6'>双人钟点房</option></select><div class='am-cf am-margin-bottom-sm'></div>";
+	var JModelInput3="<label class='am-fl am-margin-left'>入住时间</label> <input type='date' id='order-input3' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
+	var JModelInput4="<label class='am-fl am-margin-left'>离开时间</label> <input type='date' id='order-input4' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
+	
+	var JModelInput5="<label class='am-fl am-margin-left'>应付金额</label> <input type='text' id='order-input5' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";	
+	var JModelInput6="<label class='am-fl am-margin-left'>是否支付</label><select id='order-input6' class='am-modal-prompt-input am-fr'><option data-id='0'>未支付</option><option data-id='1'>已支付</option></select><div class='am-cf am-margin-bottom-sm'></div>";	
+	var JModelInput7="<label class='am-fl am-margin-left'>排序权重</label> <input id='order-input7' type='text' value='1' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
+	var $JModelFooter="<div class='am-modal-footer'><span class='am-modal-btn' data-am-modal-cancel>取消</span><span class='am-modal-btn' data-am-modal-confirm>确定</span></div>";
+
+	$JModelBody.append(JModelInput1+JModelInput2+JModelInput3+JModelInput4+JModelInput5+JModelInput6+JModelInput7);
+	$JDialog.append($JModelHead);
+	$JDialog.append($JModelBody);
+	$JDialog.append($JModelFooter);
+	$JafeneyPrompt.append($JDialog);
+	$('#all_operate').append($JafeneyPrompt);
+
+	if (callback) {
+		callback();
+	}
+}
+/**
+ * @desc 定制 编辑订单的Prompt输入弹出框 
+ * @param {[type]} your_title 弹出框标题
+ */
+function JafeneyPromptEditOrder(your_title,callback){
+	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
+	var $JDialog=$("<div class='am-modal-dialog'></div>");
+	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
+	var $JModelBody=$("<div class='am-modal-bd'></div>");
+	var JModelInput1="<label class='am-fl am-margin-left'>客户名</label> <input type='text' disabled id='order-input1' class='am-modal-prompt-input am-fr'><div class='am-cf'></div>";
 	var JModelInput2="<label class='am-fl am-margin-left'>套餐</label><select id='order-input2' class='am-modal-prompt-input am-fr'><option data-id='1'>单人标准房</option><option data-id='2'>双人标准房</option><option data-id='3'>单人豪华房</option><option data-id='4'>双人豪华房</option><option data-id='5'>单人钟点房</option><option data-id='6'>双人钟点房</option></select><div class='am-cf am-margin-bottom-sm'></div>";
 	var JModelInput3="<label class='am-fl am-margin-left'>入住时间</label> <input type='date' id='order-input3' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";
 	var JModelInput4="<label class='am-fl am-margin-left'>离开时间</label> <input type='date' id='order-input4' class='am-modal-prompt-input am-fr' /><div class='am-cf am-margin-bottom-sm'></div>";

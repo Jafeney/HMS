@@ -6,7 +6,7 @@
 var APIURL = "http://www.hms.com/HMS/API/action/admin/";
 
 /*默认的分页行数*/
-var ROWS = 10; 
+var ROWS = 20; 
 
 /**
  * @desc 通过Ajax异步加载数据
