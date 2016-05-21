@@ -226,7 +226,7 @@
 						createTime:'2015-9-15 12:25:30',
 						rank:1
 					};
-					var newTr='<tr><td><input type="text" class="checkbox check-single" data-id="1" /></td><td>'+source.id+'</td><td>'+source.name+'</td><td>'+source.thumb+'</td><td class="am-hide-sm-only am-text-center">'+source.intro+'</td><td class="am-hide-sm-only am-text-center">'+source.link+'</td><td class="am-hide-sm-only am-text-center">'+source.createTime+'</td><td class="am-hide-sm-only am-text-center">'+source.rank+'</td><td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs"><button class="am-btn am-btn-default am-btn-xs am-text-secondary edit-image" data-id='+source.id+'><span class="am-icon-pencil-square-o"></span> 编辑</button><button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-image" data-id='+source.id+'><span class="am-icon-trash-o "></span> 删除</button></div></div></td></tr>';
+					var newTr='<tr><td><input type="text" class="checkbox check-single" data-id="1" /></td><td>'+source.id+'</td><td>'+source.name+'</td><td>'+'<img src="'+source.thumb+'"/></td><td class="am-hide-sm-only am-text-center">'+source.intro+'</td><td class="am-hide-sm-only am-text-center">'+source.link+'</td><td class="am-hide-sm-only am-text-center">'+source.createTime+'</td><td class="am-hide-sm-only am-text-center">'+source.rank+'</td><td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs"><button class="am-btn am-btn-default am-btn-xs am-text-secondary edit-image" data-id='+source.id+'><span class="am-icon-pencil-square-o"></span> 编辑</button><button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-image" data-id='+source.id+'><span class="am-icon-trash-o "></span> 删除</button></div></div></td></tr>';
 					$('#image-list').append(newTr);
 					testAllChecked();
 				});
@@ -308,10 +308,33 @@
 					relatedTarget: this,
 			        onConfirm: function(e) {
 			        	var flag=1;
-			          	
 			          	//如果成功
 						if(flag){
-							JafeneyAlert("温馨提示","新产品添加成功！产品信息为："+e.data||'');		
+							JafeneyAlert("温馨提示","新产品添加成功！产品信息为："+e.data||'');
+							var id = $('#product-list>tr').length+1;
+							$('#product-list').append([
+								'<tr>',
+									'<td>',
+										'<input type="text" class="checkbox check-single" data-id="1">',
+									'</td>',
+									'<td>'+id+'</td>',
+									'<td>双人终点房</td>',
+									'<td><img src="http://img00.hc360.com/hotelsupplies/201210/201210121007218856.jpg" style="width:50px;height: 30px;"></td>',
+									'<td class="am-hide-sm-only am-text-center">双人钟点房,您值...</td>',
+									'<td class="am-hide-sm-only am-text-center">¥60.00</td>',
+									'<td class="am-hide-sm-only am-text-center">2015-9-15 12:25:30</td>',
+									'<td class="am-hide-sm-only am-text-center">1</td>',
+									'<td>',
+										'<div class="am-btn-toolbar">',
+											'<div class="am-btn-group am-btn-group-xs">',
+												'<button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>',
+												'<button class="am-btn am-btn-default am-btn-xs am-text-default btn-gallery"><span class="am-icon-th-large"></span> 设施</button>',
+												'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only delete-product"><span class="am-icon-trash-o "></span> 删除</button>',
+											'</div>',
+										'</div>',
+									'</td>',
+								'</tr>'
+							].join(''));		
 						}else{
 							JafeneyAlert("温馨提示","操作失败！请重试");	
 						}
