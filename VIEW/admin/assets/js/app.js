@@ -122,7 +122,7 @@
 
 				if(_oldpwd && _newpwd && _renewpwd){
 					if(_newpwd!==_renewpwd){
-						JafeneyAlert("温馨提示","两次密码输入不一致！");
+						Alert("温馨提示","两次密码输入不一致！");
 						$('#JafeneyAlert').modal();
 						return false;
 					}else{
@@ -136,14 +136,14 @@
 							dataType:'json',
 							success:function(res){
 								if(res.res==-1){
-									JafeneyAlert("温馨提示","旧密码不正确！");
+									Alert("温馨提示","旧密码不正确！");
 									$('#JafeneyAlert').modal();
 									return false;
 								}else if(res.res==1){
-									JafeneyAlert("温馨提示","恭喜！密码修改成功！");
+									Alert("温馨提示","恭喜！密码修改成功！");
 									$('#JafeneyAlert').modal();
 								}else{
-									JafeneyAlert("温馨提示","抱歉！请重试！");
+									Alert("温馨提示","抱歉！请重试！");
 									$('#JafeneyAlert').modal();
 									return false;
 								}
@@ -151,7 +151,7 @@
 						});
 					}
 				}else{
-					JafeneyAlert("温馨提示","请确保以上三项都不为空！");
+					Alert("温馨提示","请确保以上三项都不为空！");
 					$('#JafeneyAlert').modal();
 					return false;	
 				}				
@@ -169,7 +169,7 @@
 
 				if(_userName && _address && _email && _phone){
 					if(_phone.length!==11){
-						JafeneyAlert("温馨提示","手机号码格式不正确！");
+						Alert("温馨提示","手机号码格式不正确！");
 						$('#JafeneyAlert').modal();
 						return false;
 					}else{
@@ -185,14 +185,14 @@
 							dataType:'json',
 							success:function(res){
 								if(res){
-									JafeneyAlert("温馨提示","个人信息修改成功！");
+									Alert("温馨提示","个人信息修改成功！");
 									$('#JafeneyAlert').modal();
 								}
 							}
 						});
 					}
 				}else{
-					JafeneyAlert("温馨提示","请确保以上四项都不为空！");
+					Alert("温馨提示","请确保以上四项都不为空！");
 					$('#JafeneyAlert').modal();
 					return false;	
 				}				
@@ -216,7 +216,7 @@
 			 */
 			$('#content-image .am-icon-plus').parent().on('click',function(e){
 				e.preventDefault();
-				AddOne('图片',JafeneyPromptAddImage,function(){
+				AddOne('图片',PromptAddImage,function(){
 					var source={
 						id:5,
 						name:'单人标准房',
@@ -237,7 +237,7 @@
 			$('#content-image').on('click','.edit-image',function(e){
 				e.preventDefault();
 				var _id=$(this).data('id');
-				UpdateOne('图片',JafeneyPromptAddImage,function(){
+				UpdateOne('图片',PromptAddImage,function(){
 					console.log('图片编辑成功！');
 				});
 			});
@@ -280,9 +280,9 @@
 				
 				//如果成功
 				if(flag){
-					JafeneyAlert("温馨提示","内容提交成功！");		
+					Alert("温馨提示","内容提交成功！");		
 				}else{
-					JafeneyAlert("温馨提示","操作失败！请重试");		
+					Alert("温馨提示","操作失败！请重试");		
 				}
 				$('#JafeneyAlert').modal();
 			});
@@ -303,7 +303,7 @@
 			 */
 			$('#content-product .am-icon-plus').parent().on('click',function(){
 				$('#all_operate').empty();
-				JafeneyPromptAddProduct("添加新产品");	
+				PromptAddProduct("添加新产品");	
 				$('#JafeneyPrompt').modal({
 					relatedTarget: this,
 			        onConfirm: function(e) {
@@ -311,9 +311,9 @@
 			          	
 			          	//如果成功
 						if(flag){
-							JafeneyAlert("温馨提示","新产品添加成功！产品信息为："+e.data||'');		
+							Alert("温馨提示","新产品添加成功！产品信息为："+e.data||'');		
 						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
+							Alert("温馨提示","操作失败！请重试");	
 						}
 						$('#JafeneyAlert').modal();
 			        },
@@ -328,7 +328,7 @@
 			$('#content-product .am-icon-pencil-square-o').parent().on('click',function(e){
 				e.preventDefault();
 				$('#all_operate').empty();
-				JafeneyPromptAddProduct("编辑产品");	
+				PromptAddProduct("编辑产品");	
 				$('#JafeneyPrompt').modal({
 					relatedTarget: this,
 			        onConfirm: function(e) {
@@ -336,9 +336,9 @@
 			          	
 			          	//如果成功
 						if(flag){
-							JafeneyAlert("温馨提示","产品修改成功！产品信息为："+e.data||'');	
+							Alert("温馨提示","产品修改成功！产品信息为："+e.data||'');	
 						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
+							Alert("温馨提示","操作失败！请重试");	
 						}
 						$('#JafeneyAlert').modal();
 			        },
@@ -353,16 +353,16 @@
 			$('#content-product .delete-product').on('click',function(e){
 				e.preventDefault();
 				$('#all_operate').empty();
-				JafeneyComfirm("温馨提示","您确定要删除该产品吗？");	
+				Comfirm("温馨提示","您确定要删除该产品吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
 			        	var flag=0;
 			          	
 						if(flag){
-							JafeneyAlert("温馨提示","该产品已被成功删除！");		
+							Alert("温馨提示","该产品已被成功删除！");		
 						}else{
-							JafeneyAlert("温馨提示","删除失败请重试！");		
+							Alert("温馨提示","删除失败请重试！");		
 						}
 						$('#JafeneyAlert').modal();
 			        },
@@ -377,7 +377,7 @@
 			$('#content-product .delete-some').on('click',function(e){
 				$('#all_operate').empty();
 				e.preventDefault();
-				JafeneyComfirm("温馨提示","您确定要删除这些产品吗？");	
+				Comfirm("温馨提示","您确定要删除这些产品吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
@@ -389,9 +389,9 @@
     						}
     					});
     					if(selectItems.length===0){
-    						JafeneyAlert("温馨提示","请先勾选要删除的内容！");	
+    						Alert("温馨提示","请先勾选要删除的内容！");	
     					}else{
-    						JafeneyAlert("温馨提示","删除成功！");
+    						Alert("温馨提示","删除成功！");
     					}
     					$('#JafeneyAlert').modal();
 			        },
@@ -408,7 +408,7 @@
 				e.preventDefault();
 				$('#all_operate').empty();
 				var galleryList='<ul class="gallery-list"><li data-id="1" class="active">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li><li data-id="1">水壶</li></ul>';
-				JafeneyListGallery('编辑设施列表',galleryList);
+				ListGallery('编辑设施列表',galleryList);
 				$('#JafeneyList').modal({
 					relatedTarget: this,
 			        onConfirm: function(e) {
@@ -416,9 +416,9 @@
 			          	
 			          	//如果成功
 						if(flag){
-							JafeneyAlert("温馨提示","设施修改成功！设施信息为："+e.data||'');	
+							Alert("温馨提示","设施修改成功！设施信息为："+e.data||'');	
 						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
+							Alert("温馨提示","操作失败！请重试");	
 						}
 						$('#JafeneyAlert').modal();
 			        },
@@ -487,7 +487,7 @@
 			$('#content-users').on('click','#user-add',function(e){
 				e.preventDefault();
 
-				AddOne('客户',JafeneyPromptAddUser,function(){
+				AddOne('客户',PromptAddUser,function(){
 					var source={
 						name: $('#user-input1').val(),
 						card: $('#user-input2').val(),
@@ -529,9 +529,9 @@
 								].join('');
 								$('#user-list').append(newTr);
 								testAllChecked();
-								JafeneyAlert("温馨提示","添加成功！");
+								Alert("温馨提示","添加成功！");
 							}else{
-								JafeneyAlert("温馨提示","操作失败请重试！");	
+								Alert("温馨提示","操作失败请重试！");	
 							}
 							$('#JafeneyAlert').modal();
 						}
@@ -558,7 +558,7 @@
 					$('#user-input6').val(self.data('rank'));
 				};
 
-				UpdateOne('客户',JafeneyPromptAddUser,function(){
+				UpdateOne('客户',PromptAddUser,function(){
 					var source={
 						id: self.data('id'),
 						name: $('#user-input1').val(),
@@ -599,9 +599,9 @@
 								].join('');
 								self.parent().parent().parent().parent().html(updateTr);
 								testAllChecked();
-								JafeneyAlert("温馨提示","更新成功！");
+								Alert("温馨提示","更新成功！");
 							}else{
-								JafeneyAlert("温馨提示","操作失败请重试！");	
+								Alert("温馨提示","操作失败请重试！");	
 							}
 							$('#JafeneyAlert').modal();
 						}
@@ -623,9 +623,9 @@
 							if(res.res){
 								self.parent().parent().parent().parent().remove();
 								testAllChecked();
-								JafeneyAlert("温馨提示","该用户已被成功删除！");
+								Alert("温馨提示","该用户已被成功删除！");
 							}else{
-								JafeneyAlert("温馨提示","操作失败请重试！");	
+								Alert("温馨提示","操作失败请重试！");	
 							}
 							$('#JafeneyAlert').modal();
 						});
@@ -645,15 +645,15 @@
 						selectItems.push(checkBoxs.eq(idx).data('id'));
 					});
 					if(selectItems.length===0){
-						JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
+						Alert("温馨提示","请先勾选要批量操作的内容！");
 					}else{
 						$.getJSON(APIURL+'users_delete.act.php?id='+selectItems.join(','),function(res){
 							if(res.res){
 								checkBoxs.parent().parent().remove();
 								testAllChecked();
-								JafeneyAlert("温馨提示","这些客户已被成功删除！");
+								Alert("温馨提示","这些客户已被成功删除！");
 							}else{
-								JafeneyAlert("温馨提示","操作失败请重试！");	
+								Alert("温馨提示","操作失败请重试！");	
 							}
 							$('#JafeneyAlert').modal();
 						});
@@ -851,7 +851,7 @@
 				};
 				
 				/*更新*/
-				UpdateOne('订单',JafeneyPromptEditOrder,function(){
+				UpdateOne('订单',PromptEditOrder,function(){
 					var _time = new Date();
 					var formatDate = function(num) {
 						if(num<10) {
@@ -916,9 +916,9 @@
 							if(res.res){
 								self.parent().parent().parent().parent().html(updateTr);
 								testAllChecked();
-								JafeneyAlert("温馨提示","更新成功！");
+								Alert("温馨提示","更新成功！");
 							}else{
-								JafeneyAlert("温馨提示","操作失败请重试！");	
+								Alert("温馨提示","操作失败请重试！");	
 							}
 							$('#JafeneyAlert').modal();
 						}
@@ -940,9 +940,9 @@
 							if(res.res){
 								self.parent().parent().parent().parent().remove();
 								testAllChecked();
-								JafeneyAlert("温馨提示","该订单已被成功删除！");
+								Alert("温馨提示","该订单已被成功删除！");
 							}else{
-								JafeneyAlert("温馨提示","操作失败请重试！");	
+								Alert("温馨提示","操作失败请重试！");	
 							}
 							$('#JafeneyAlert').modal();
 						});
@@ -961,15 +961,15 @@
 						selectItems.push(checkBoxs.eq(idx).data('id'));
 					});
 					if(selectItems.length===0){
-						JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
+						Alert("温馨提示","请先勾选要批量操作的内容！");
 					}else{
 						$.getJSON(APIURL+'messages_delete.act.php?id='+selectItems.join(','),function(res){
 							if(res.res){
 								checkBoxs.parent().parent().remove();
 								testAllChecked();
-								JafeneyAlert("温馨提示","这些订单已被成功删除！");
+								Alert("温馨提示","这些订单已被成功删除！");
 							}else{
-								JafeneyAlert("温馨提示","操作失败请重试！");	
+								Alert("温馨提示","操作失败请重试！");	
 							}
 							$('#JafeneyAlert').modal();
 						});
@@ -1097,18 +1097,18 @@
 				var id=$(this).data('id');
 				e.preventDefault();
 				$('#all_operate').empty();
-				JafeneyComfirm("温馨提示","您确定要已经阅读过该留言了吗？");	
+				Comfirm("温馨提示","您确定要已经阅读过该留言了吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
 			        	$.getJSON(APIURL+'messages_look.act.php?id='+id,function(res){
 			        		if(res.res){
-			        			JafeneyAlert("温馨提示","该留言已被成功阅读！");
+			        			Alert("温馨提示","该留言已被成功阅读！");
 			        			setTimeout(function(){
 									location.href=location.href;
 								},500);
 			        		}else{
-			        			JafeneyAlert("温馨提示","操作失败请重试！");	
+			        			Alert("温馨提示","操作失败请重试！");	
 			        		}
 			        		$('#JafeneyAlert').modal();
 			        	});
@@ -1124,7 +1124,7 @@
 			$('#content-message .looked-some').on('click',function(e){
 				$('#all_operate').empty();
 				e.preventDefault();
-				JafeneyComfirm("温馨提示","这些留言您确定都阅读了吗？");	
+				Comfirm("温馨提示","这些留言您确定都阅读了吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
@@ -1134,16 +1134,16 @@
 							selectItems.push(checkBoxs.eq(idx).data('id'));
 						});
 						if(selectItems.length===0){
-							JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
+							Alert("温馨提示","请先勾选要批量操作的内容！");
 						}else{
 							$.getJSON(APIURL+'messages_look.act.php?id='+selectItems.join(','),function(res){
 								if(res.res){
-									JafeneyAlert("温馨提示","这些留言已被成功阅读！");
+									Alert("温馨提示","这些留言已被成功阅读！");
 									setTimeout(function(){
 										location.href=location.href;
 									},500);
 								}else{
-									JafeneyAlert("温馨提示","操作失败请重试！");	
+									Alert("温馨提示","操作失败请重试！");	
 								}
 								$('#JafeneyAlert').modal();
 							});
@@ -1162,18 +1162,18 @@
 				var id=$(this).data('id');
 				e.preventDefault();
 				$('#all_operate').empty();
-				JafeneyComfirm("温馨提示","您确定要删除该留言吗？");	
+				Comfirm("温馨提示","您确定要删除该留言吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
 			        	$.getJSON(APIURL+'messages_delete.act.php?id='+id,function(res){
 			        		if(res.res){
-			        			JafeneyAlert("温馨提示","该留言已被成功删除！");
+			        			Alert("温馨提示","该留言已被成功删除！");
 			        			setTimeout(function(){
 			        				location.href=location.href;
 			        			},500);
 			        		}else{
-			        			JafeneyAlert("温馨提示","操作失败请重试！");	
+			        			Alert("温馨提示","操作失败请重试！");	
 			        		}
 			        		$('#JafeneyAlert').modal();
 			        	});
@@ -1190,7 +1190,7 @@
 			$('#content-message .delete-some').on('click',function(e){
 				$('#all_operate').empty();
 				e.preventDefault();
-				JafeneyComfirm("温馨提示","您确定要删除这些留言吗？");	
+				Comfirm("温馨提示","您确定要删除这些留言吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
@@ -1200,16 +1200,16 @@
         					selectItems.push(checkBoxs.eq(idx).data('id'));
         				});
         				if(selectItems.length===0){
-        					JafeneyAlert("温馨提示","请先勾选要批量操作的内容！");
+        					Alert("温馨提示","请先勾选要批量操作的内容！");
         				}else{
         					$.getJSON(APIURL+'messages_delete.act.php?id='+selectItems.join(','),function(res){
         						if(res.res){
-        							JafeneyAlert("温馨提示","这些留言已被成功删除！");
+        							Alert("温馨提示","这些留言已被成功删除！");
         							setTimeout(function(){
         								location.href=location.href;
         							},500);
         						}else{
-        							JafeneyAlert("温馨提示","操作失败请重试！");	
+        							Alert("温馨提示","操作失败请重试！");	
         						}
         						$('#JafeneyAlert').modal();
         					});
@@ -1232,7 +1232,7 @@
 			 */
 			$('#content-system .am-icon-plus').parent().on('click',function(){
 				$('#all_operate').empty();
-				JafeneyPromptAddTheme("添加新主题");	
+				PromptAddTheme("添加新主题");	
 				$('#JafeneyPrompt').modal({
 					relatedTarget: this,
 			        onConfirm: function(e) {
@@ -1240,9 +1240,9 @@
 			          
 			          	//如果成功
 						if(flag){
-							JafeneyAlert("温馨提示","新主题添加成功！主题信息为："+e.data||'');		
+							Alert("温馨提示","新主题添加成功！主题信息为："+e.data||'');		
 						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
+							Alert("温馨提示","操作失败！请重试");	
 						}
 						$('#JafeneyAlert').modal();
 			        },
@@ -1257,7 +1257,7 @@
 			$('#content-system .am-icon-pencil-square-o').parent().on('click',function(e){
 				e.preventDefault();
 				$('#all_operate').empty();
-				JafeneyPromptAddTheme("编辑主题");	
+				PromptAddTheme("编辑主题");	
 				$('#JafeneyPrompt').modal({
 					relatedTarget: this,
 			        onConfirm: function(e) {
@@ -1265,9 +1265,9 @@
 			          	
 			          	//如果成功
 						if(flag){
-							JafeneyAlert("温馨提示","主题修改成功！主题信息为："+e.data||'');	
+							Alert("温馨提示","主题修改成功！主题信息为："+e.data||'');	
 						}else{
-							JafeneyAlert("温馨提示","操作失败！请重试");	
+							Alert("温馨提示","操作失败！请重试");	
 						}
 						$('#JafeneyAlert').modal();
 			        },
@@ -1282,16 +1282,16 @@
 			$('#content-system .delete-theme').on('click',function(e){
 				e.preventDefault();
 				$('#all_operate').empty();
-				JafeneyComfirm("温馨提示","您确定要删除该主题吗？");	
+				Comfirm("温馨提示","您确定要删除该主题吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
 			        	var flag=0;
 			          	
 						if(flag){
-							JafeneyAlert("温馨提示","该主题已被成功删除！");		
+							Alert("温馨提示","该主题已被成功删除！");		
 						}else{
-							JafeneyAlert("温馨提示","删除失败请重试！");		
+							Alert("温馨提示","删除失败请重试！");		
 						}
 						$('#JafeneyAlert').modal();
 			        },
@@ -1306,7 +1306,7 @@
 			$('#content-system .delete-some').on('click',function(e){
 				$('#all_operate').empty();
 				e.preventDefault();
-				JafeneyComfirm("温馨提示","您确定要删除这些主题吗？");	
+				Comfirm("温馨提示","您确定要删除这些主题吗？");	
 				$('#JafeneyComfirm').modal({
 					relatedTarget: this,
 			        onConfirm: function(options) {
@@ -1318,9 +1318,9 @@
 							}
 						});
 						if(selectItems.length===0){
-							JafeneyAlert("温馨提示","请先勾选要删除的内容！");	
+							Alert("温馨提示","请先勾选要删除的内容！");	
 						}else{
-							JafeneyAlert("温馨提示","删除成功！");
+							Alert("温馨提示","删除成功！");
 						}
 						$('#JafeneyAlert').modal();
 			        },

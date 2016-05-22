@@ -7,7 +7,7 @@
  * @param {[type]} your_title 弹出框的标题
  * @param {[type]} your_content 弹出框的内容
  */
-function JafeneyAlert(your_title,your_content){
+function Alert(your_title,your_content){
 	var $JafeneyAlert=$("<div class='am-modal am-modal-alert' tabindex='-1' id='JafeneyAlert'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -25,7 +25,7 @@ function JafeneyAlert(your_title,your_content){
  * @param {[type]} your_title 弹出框的标题
  * @param {[type]} your_content 弹出框的内容
  */
-function JafeneyComfirm(your_title,your_content){
+function Comfirm(your_title,your_content){
 	var $JafeneyComfirm=$("<div class='am-modal am-modal-confirm' tabindex='-1' id='JafeneyComfirm'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -43,7 +43,7 @@ function JafeneyComfirm(your_title,your_content){
  * @param {[type]} your_title 弹出框的标题
  * @param {[type]} your_content 团出框的内容
  */
-function JafeneyPrompt(your_title,your_content){
+function Prompt(your_title,your_content){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -62,7 +62,7 @@ function JafeneyPrompt(your_title,your_content){
  * @desc 定制 添加用户的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
  */
-function JafeneyPromptAddUser(your_title,callback){
+function PromptAddUser(your_title,callback){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -91,7 +91,7 @@ function JafeneyPromptAddUser(your_title,callback){
  * @desc 定制 添加图片的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
  */
-function JafeneyPromptAddImage(your_title){
+function PromptAddImage(your_title){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -116,7 +116,7 @@ function JafeneyPromptAddImage(your_title){
  * @desc 定制 添加产品的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
  */
-function JafeneyPromptAddProduct(your_title){
+function PromptAddProduct(your_title){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -141,7 +141,7 @@ function JafeneyPromptAddProduct(your_title){
  * @param {[type]} your_title 弹出框标题
  * @param {[type]} your_content 弹出框的内容
  */
-function JafeneyListGallery(your_title,your_content){
+function ListGallery(your_title,your_content){
 	var $JafeneyList=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyList'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -162,7 +162,7 @@ function JafeneyListGallery(your_title,your_content){
  * @desc 定制 添加订单的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
  */
-function JafeneyPromptAddOrder(your_title,callback){
+function PromptAddOrder(your_title,callback){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -192,7 +192,7 @@ function JafeneyPromptAddOrder(your_title,callback){
  * @desc 定制 编辑订单的Prompt输入弹出框 
  * @param {[type]} your_title 弹出框标题
  */
-function JafeneyPromptEditOrder(your_title,callback){
+function PromptEditOrder(your_title,callback){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
@@ -223,7 +223,7 @@ function JafeneyPromptEditOrder(your_title,callback){
  * @desc 定制 添加主题的Prompt输入弹出框 
  * @param {[type]} 弹出框标题
  */
-function JafeneyPromptAddTheme(your_title){
+function PromptAddTheme(your_title){
 	var $JafeneyPrompt=$("<div class='am-modal am-modal-prompt' tabindex='-1' id='JafeneyPrompt'></div>");
 	var $JDialog=$("<div class='am-modal-dialog'></div>");
 	var $JModelHead=$("<div class='am-modal-hd'><i class='am-icon-smile-o am-margin-right-sm'></i>"+your_title+"</div>");
