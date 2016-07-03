@@ -3,7 +3,7 @@
 	/*设置文档类型和编码方式*/
 	header('Content-Type:text/json;charset=utf-8');
 	/*引入公共方法库*/
-	require 'E:/wamp/www/HMS/API/util/common.php';
+	require '/Library/WebServer/Documents/HMS/API/util/common.php';
 
 	/**
 	 * @example "http://www.hms.com/HMS/API/action/front/book.act.php?productId=1&userPhone=18367853270&inDate=2016-02-20&outDate=2016-02-21&days=1" 

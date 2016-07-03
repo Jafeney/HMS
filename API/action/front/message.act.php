@@ -3,7 +3,7 @@
 	/*设置文档类型和编码方式*/
 	header('Content-Type:text/json;charset=utf-8');
 	/*引入公共方法库*/
-	require 'E:/wamp/www/HMS/API/util/common.php';
+	require '/Library/WebServer/Documents/HMS/API/util/common.php';
 
 	/**
 	 * @example "http://www.hms.com/HMS/API/action/front/message.act.php?userName=王大宝&productId=1&email=692270687@qq.com&phone=18367853270&content=住的很舒服下次还来哈" 

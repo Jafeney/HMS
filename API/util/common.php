@@ -1,6 +1,9 @@
 <?php
 	
 	header('Content-Type:text/html;charset=utf-8');
+
+	/*设置时区*/
+	ini_set('date.timezone','Asia/Shanghai');
 	
 	//定义一个常量来授权,防止非法调用
 	define('IN_TG', TRUE);
@@ -14,9 +17,13 @@
 	}
 
 	//引入函数库操作类
-	require 'E:/wamp/www/HMS/API/util/SQLhelper.class.php';
+	// require 'E:/wamp/www/HMS/API/util/SQLhelper.class.php';
+	require '/Library/WebServer/Documents/HMS/API/util/SQLhelper.class.php';
+	
 	//引入基本操作方法库
-	require 'E:/wamp/www/HMS/API/util/util.func.php';
+	// require 'E:/wamp/www/HMS/API/util/util.func.php';
+	require '/Library/WebServer/Documents/HMS/API/util/util.func.php';
+	
 
 	/*返回导航栏元素*/
 	$_mysqli=new sqlhelper();

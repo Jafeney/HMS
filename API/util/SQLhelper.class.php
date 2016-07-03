@@ -2,7 +2,8 @@
 
 	/*数据库操作类，定义增删改查方法*/
 
-	require 'E:/wamp/www/HMS/API/util/db_config.php';
+	// require 'E:/wamp/www/HMS/API/util/db_config.php';
+	require '/Library/WebServer/Documents/HMS/API/util/db_config.php';
 	//数据库访问方法（查。增，删，改）
 	class sqlhelper extends mysqli
 	{
